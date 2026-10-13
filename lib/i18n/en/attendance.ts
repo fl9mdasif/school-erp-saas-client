@@ -20,4 +20,11 @@ export const attendance = {
   "att.take.closed": "This sheet can no longer be edited ({hours} hours have passed). Ask an admin to correct it.",
   "att.take.draftRestored": "We restored your unsaved changes for this day.",
   "att.take.weekend": "This is a weekend day. Tick to record attendance anyway.",
+  "att.rep.title": "Attendance reports",
+  "att.rep.desc": "A day-by-day sheet for one class, with each student's attendance percentage.",
+  "att.rep.from": "From",
+  "att.rep.to": "To",
+  "att.rep.legend": "P present, A absent, L late, V leave. Percent counts late as present and leaves out leave days.",
+  "att.rep.empty": "No attendance in this period",
+  "att.rep.emptyDesc": "Choose another class or a wider date range.",
 } as const;
