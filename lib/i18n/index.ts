@@ -3,16 +3,18 @@ import { errors as enErrors } from "./en/errors";
 import { nav as enNav } from "./en/nav";
 import { upload as enUpload } from "./en/upload";
 import { marketing as enMarketing } from "./en/marketing";
+import { auth as enAuth } from "./en/auth";
 import { common as bnCommon } from "./bn/common";
 import { errors as bnErrors } from "./bn/errors";
 import { nav as bnNav } from "./bn/nav";
 import { upload as bnUpload } from "./bn/upload";
 import { marketing as bnMarketing } from "./bn/marketing";
+import { auth as bnAuth } from "./bn/auth";
 
 // Each module adds its own file under en/ and bn/ and spreads it here. The Bangla file is typed
 // from the English one, so a missing Bangla string is a compile error.
-export const en = { ...enCommon, ...enErrors, ...enNav, ...enUpload, ...enMarketing };
-export const bn: Record<TKey, string> = { ...bnCommon, ...bnErrors, ...bnNav, ...bnUpload, ...bnMarketing };
+export const en = { ...enCommon, ...enErrors, ...enNav, ...enUpload, ...enMarketing, ...enAuth };
+export const bn: Record<TKey, string> = { ...bnCommon, ...bnErrors, ...bnNav, ...bnUpload, ...bnMarketing, ...bnAuth };
 
 export type TKey = keyof typeof en;
 export type TLang = "bn" | "en";

@@ -33,5 +33,11 @@ export function useT() {
     [terminology, lang]
   );
 
-  return { t, term, lang };
+  /** Translates a zod message that is a dictionary key (val.*); anything else is shown as it is. */
+  const tv = useCallback(
+    (message?: string) => (message && message in dictionary.en ? translate(lang, message as TKey) : message),
+    [lang]
+  );
+
+  return { t, term, tv, lang };
 }
