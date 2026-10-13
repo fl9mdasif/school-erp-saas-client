@@ -1,0 +1,227 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+  Final theme: teal, navy and blue. No brown, gold or orange anywhere.
+  Platform brand (dashboard, marketing site) uses the :root tokens.
+  Tenant presets (public school site only) override the brand tokens through data-tenant-theme.
+  Status colours never change with a preset: staff build habits around them.
+  Every text pair was measured against WCAG AA (4.5:1) and every UI border against 3:1.
+*/
+:root {
+  --radius: 0.5rem;
+
+  /* surfaces and text */
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --input: #8091a7; /* 3.2:1 on white: form borders stay visible */
+
+  /* brand */
+  --primary: #0f766e; /* main button, active nav */
+  --primary-foreground: #ffffff;
+  --primary-hover: #115e59;
+  --primary-tint: #ccfbf1; /* selected row, chip background */
+  --primary-deep: #115e59; /* text on the tint */
+  --navy: #0b2a4a; /* header, sidebar, logo, headings */
+  --highlight: #0369a1; /* links, info, highlights (replaces the old amber) */
+  --highlight-tint: #e0f2fe;
+  --highlight-deep: #075985;
+  --ring: #0f766e;
+
+  /* shadcn secondary and accent are neutral hover surfaces */
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+
+  /* status: identical in every preset, always paired with a word or icon */
+  --success: #15803d;
+  --success-foreground: #ffffff;
+  --success-tint: #dcfce7;
+  --success-deep: #166534;
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+  --destructive-tint: #fee2e2;
+  --destructive-deep: #b91c1c;
+  --warning: #92400e; /* the only amber in the app: the small Due / Warning chip */
+  --warning-foreground: #ffffff;
+  --warning-tint: #fef3c7;
+  --warning-deep: #92400e;
+  --info: #0369a1;
+  --info-foreground: #ffffff;
+  --info-tint: #e0f2fe;
+  --info-deep: #075985;
+
+  --chart-1: #0f766e;
+  --chart-2: #0369a1;
+  --chart-3: #0b2a4a;
+  --chart-4: #15803d;
+  --chart-5: #64748b;
+
+  /* navy sidebar on a light dashboard */
+  --sidebar: #0b2a4a;
+  --sidebar-foreground: #cbd5e1; /* 9.8:1 on navy */
+  --sidebar-muted: #94a3b8; /* 5.7:1 on navy */
+  --sidebar-primary: #0f766e; /* active item background, white text 5.5:1 */
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #12385f; /* hover */
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #1e3a5f;
+  --sidebar-ring: #5eead4;
+}
+
+/* Tenant presets: public school site. School is the launch default; Madrasa and Coaching wait for owner review. */
+[data-tenant-theme="school"] {
+  --primary: #1e40af;
+  --primary-hover: #1e3a8a;
+  --primary-tint: #dbeafe;
+  --primary-deep: #1e40af;
+  --highlight: #0369a1;
+  --ring: #1e40af;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+[data-tenant-theme="madrasa"] {
+  --primary: #166534;
+  --primary-hover: #14532d;
+  --primary-tint: #dcefe0;
+  --primary-deep: #166534;
+  --highlight: #0f766e;
+  --ring: #166534;
+  --background: #f7faf7;
+  --foreground: #14231b;
+}
+[data-tenant-theme="coaching"] {
+  --primary: #be123c;
+  --primary-hover: #9f1239;
+  --primary-tint: #ffe4e6;
+  --primary-deep: #9f1239;
+  --highlight: #1e293b;
+  --ring: #be123c;
+  --background: #f8fafc;
+  --foreground: #1e293b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-tint: var(--primary-tint);
+  --color-primary-deep: var(--primary-deep);
+  --color-navy: var(--navy);
+  --color-highlight: var(--highlight);
+  --color-highlight-tint: var(--highlight-tint);
+  --color-highlight-deep: var(--highlight-deep);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-tint: var(--success-tint);
+  --color-success-deep: var(--success-deep);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-tint: var(--destructive-tint);
+  --color-destructive-deep: var(--destructive-deep);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-tint: var(--warning-tint);
+  --color-warning-deep: var(--warning-deep);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-tint: var(--info-tint);
+  --color-info-deep: var(--info-deep);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  --font-sans: var(--font-bangla), var(--font-inter), system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6; /* Bangla needs more leading */
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  /* visible keyboard focus everywhere */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

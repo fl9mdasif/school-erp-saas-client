@@ -1,0 +1,118 @@
+"use client";
+
+import { BookOpen, CalendarCheck, Globe, GraduationCap, Smartphone, Trophy, Wallet } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { useT } from "@/lib/i18n/useT";
+import { ContainerScroll } from "./ContainerScroll";
+import { DashboardMock, ResultMock } from "./Mocks";
+import { PhoneScroll } from "./PhoneScroll";
+import { PricingSection } from "./PricingSection";
+
+const FEATURES = [
+  { icon: GraduationCap, key: "students" },
+  { icon: CalendarCheck, key: "attendance" },
+  { icon: Wallet, key: "fees" },
+  { icon: Trophy, key: "results" },
+  { icon: Globe, key: "website" },
+  { icon: Smartphone, key: "parents" },
+] as const;
+
+const AUDIENCE = ["school", "madrasa", "coaching"] as const;
+
+export function LandingPage() {
+  const { t } = useT();
+
+  return (
+    <>
+      {/* hero with the first 3D scroll: the dashboard tilts flat as you scroll */}
+      <ContainerScroll
+        titleComponent={
+          <div className="px-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary md:text-sm">{t("mk.hero.eyebrow")}</p>
+            <h1 className="mt-3 text-3xl font-semibold leading-tight text-navy md:text-5xl">
+              {t("mk.hero.title1")}
+              <span className="mt-1 block text-4xl font-bold text-primary md:text-7xl">{t("mk.hero.title2")}</span>
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground md:text-lg">{t("mk.hero.subtitle")}</p>
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <Link href="/signup">{t("mk.hero.cta")}</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
+                <Link href="#features">{t("mk.hero.cta2")}</Link>
+              </Button>
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">{t("mk.hero.note")}</p>
+          </div>
+        }
+      >
+        <DashboardMock />
+      </ContainerScroll>
+
+      {/* who it is for */}
+      <section className="mx-auto max-w-6xl px-4 py-12">
+        <h2 className="mb-8 text-center text-2xl font-semibold md:text-3xl">{t("mk.audience.title")}</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {AUDIENCE.map((k) => (
+            <Card key={k} className="p-6">
+              <BookOpen className="mb-3 size-6 text-primary" aria-hidden="true" />
+              <h3 className="text-lg font-semibold">{t(`mk.audience.${k}.title`)}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{t(`mk.audience.${k}.body`)}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* features */}
+      <section id="features" className="bg-card py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <h2 className="mb-10 text-center text-2xl font-semibold md:text-3xl">{t("mk.features.title")}</h2>
+          <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURES.map(({ icon: Icon, key }) => (
+              <div key={key} className="flex gap-4">
+                <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-primary-tint text-primary-deep">
+                  <Icon className="size-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 className="font-semibold">{t(`mk.features.${key}.title`)}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{t(`mk.features.${key}.body`)}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* result lookup teaser with the second 3D scroll: the phone tilts flat over the headline */}
+      <PhoneScroll
+        titleComponent={
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary md:text-sm">{t("mk.phone.eyebrow")}</p>
+            <h2 className="mt-3 text-2xl font-semibold text-navy md:text-4xl">
+              {t("mk.phone.title1")}
+              <span className="mt-1 block text-3xl font-bold md:text-6xl">{t("mk.phone.title2")}</span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{t("mk.phone.body")}</p>
+          </div>
+        }
+      >
+        <ResultMock />
+      </PhoneScroll>
+
+      <PricingSection />
+
+      {/* closing call to action */}
+      <section className="bg-navy py-16 text-center">
+        <div className="mx-auto max-w-2xl px-4">
+          <h2 className="text-2xl font-semibold text-white md:text-3xl">{t("mk.final.title")}</h2>
+          <p className="mt-2 text-sidebar-foreground">{t("mk.final.body")}</p>
+          <Button asChild size="lg" className="mt-6">
+            <Link href="/signup">{t("mk.hero.cta")}</Link>
+          </Button>
+        </div>
+      </section>
+    </>
+  );
+}
