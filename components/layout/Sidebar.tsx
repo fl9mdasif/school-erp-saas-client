@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { sidebarItems } from "@/utils/drawerItems";
 import { Brand } from "./Brand";
 import { NavList } from "./NavList";
+import { AccountCard } from "./AccountCard";
 
 /**
  * Navy sidebar. 1024 px and up: full width, collapsible to icons. 768 to 1023 px: icons only.
@@ -46,6 +47,13 @@ export function Sidebar() {
           <NavList items={items} compact={collapsed} />
         </div>
       </nav>
+
+      <div className="lg:hidden">
+        <AccountCard compact />
+      </div>
+      <div className="hidden lg:block">
+        <AccountCard compact={collapsed} />
+      </div>
 
       <div className="hidden border-t border-sidebar-border p-3 lg:block">
         <button

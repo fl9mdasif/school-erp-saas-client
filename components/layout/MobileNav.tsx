@@ -12,6 +12,7 @@ import { setMobileDrawer } from "@/redux/slices/uiSlice";
 import { bottomNavItems, sidebarItems } from "@/utils/drawerItems";
 import { Brand } from "./Brand";
 import { NavList } from "./NavList";
+import { AccountCard } from "./AccountCard";
 
 /** Phone navigation: a drawer with everything, plus a bottom bar with the four most used destinations. */
 export function MobileNav() {
@@ -41,6 +42,7 @@ export function MobileNav() {
           <nav aria-label={t("nav.menu")} className="flex-1 overflow-y-auto p-3">
             <NavList items={all} onNavigate={close} />
           </nav>
+          <AccountCard />
           <div className="border-t border-sidebar-border p-3 sm:hidden">
             <LanguageToggle inverted />
           </div>
