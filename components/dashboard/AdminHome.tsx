@@ -3,6 +3,7 @@
 import { Banknote, Bell, CalendarCheck, GraduationCap, Inbox, UserPlus, Users } from "lucide-react";
 import Link from "next/link";
 import { ErrorState } from "@/components/common/ErrorState";
+import { OnboardingChecklist } from "./OnboardingChecklist";
 import { PageHeader } from "@/components/common/PageHeader";
 import { StatCard } from "@/components/common/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -38,6 +39,7 @@ export function AdminHome() {
   return (
     <>
       <PageHeader title={t("ad.home.title")} description={t("ad.home.desc")} />
+      <OnboardingChecklist summary={data} />
 
       <section aria-label={t("ad.home.title")} className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard icon={GraduationCap} label={t("ad.stat.students", { students: term("student") })} value={formatNumber(data?.students ?? 0, fmt)} loading={isLoading} />

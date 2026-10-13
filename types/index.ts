@@ -3,3 +3,4 @@ export * from "./api";
 export * from "./auth";
 export * from "./platform";
 export * from "./dashboard";
+export * from "./academic";
