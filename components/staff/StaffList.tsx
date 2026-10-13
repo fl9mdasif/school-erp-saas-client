@@ -9,6 +9,7 @@ import { SearchInput } from "@/components/common/SearchInput";
 import { StatusChip } from "@/components/common/StatusChip";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { StaffActions } from "./StaffActions";
 import { Select } from "@/components/ui/select";
 import { formatLocalDate, isoToLocalDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/useT";
@@ -102,6 +103,7 @@ export function StaffList() {
         error={error}
         onRetry={refetch}
         onPageChange={(page) => url.set({ page: String(page) }, { resetPage: false })}
+        rowActions={(u) => <StaffActions user={u} isSelf={u._id === me} />}
         emptyTitle={t("st.empty")}
         emptyDescription={t("st.emptyDesc")}
         emptyAction={
