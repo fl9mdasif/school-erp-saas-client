@@ -6,6 +6,7 @@ import { useT } from "@/lib/i18n/useT";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setMobileDrawer } from "@/redux/slices/uiSlice";
 import { Brand } from "./Brand";
+import { SessionSwitcher } from "./SessionSwitcher";
 import { UserMenu } from "./UserMenu";
 
 /** Institution name on the left, language and user menu on the right. The session switcher is added with the Academic module. */
@@ -32,6 +33,7 @@ export function Topbar({ children }: { children?: React.ReactNode }) {
         <p className="truncate text-base font-semibold text-navy">{tenant?.name ?? t("common.appName")}</p>
       </div>
 
+      <SessionSwitcher />
       {children}
       <LanguageToggle className="hidden sm:inline-flex" />
       <UserMenu />
