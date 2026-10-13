@@ -80,3 +80,49 @@ export type TLoginsResult = {
   student?: { loginId: string; temporaryPassword: string };
   guardians: { guardianId: string; phone: string; temporaryPassword: string }[];
 };
+
+export type TAttendanceTotals = { present: number; absent: number; late: number; leave: number; percent: number | null };
+
+export type TStudentAttendance = {
+  studentId: string;
+  name: string;
+  from: string;
+  to: string;
+  totals: TAttendanceTotals;
+  months: ({ month: string } & TAttendanceTotals)[];
+  days: { date: string; status: "present" | "absent" | "late" | "leave" }[];
+};
+
+export type TLedgerEntry = {
+  id: string;
+  date: string;
+  type: string;
+  direction: "debit" | "credit";
+  /** Integer poisha. */
+  amount: number;
+  invoiceId?: string;
+  paymentId?: string;
+  note?: string;
+  /** Running balance in poisha after this entry. */
+  balance: number;
+};
+
+export type TStudentLedger = { studentId: string; balance: number; entries: TLedgerEntry[] };
+
+export type TResultSubject = { subjectId: string; name: string; kind: string; total: number; fullMarks: number; letter: string; point: number; passed: boolean };
+
+export type TStudentResult = {
+  _id: string;
+  examId: string;
+  examName?: string;
+  subjects: TResultSubject[];
+  totalMarks: number;
+  fullMarks: number;
+  percent: number;
+  gpa?: number;
+  letter?: string;
+  division?: string;
+  passed: boolean;
+  positionInClass?: number;
+  status: "draft" | "published";
+};

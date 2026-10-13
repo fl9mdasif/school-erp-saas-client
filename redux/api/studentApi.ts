@@ -4,7 +4,10 @@ import type {
   TPaged,
   TStudent,
   TStudentCreateInput,
+  TStudentAttendance,
   TStudentDetail,
+  TStudentLedger,
+  TStudentResult,
   TStudentProfileInput,
   TStudentStatus,
 } from "@/types";
@@ -47,7 +50,19 @@ export const studentApi = baseApi.injectEndpoints({
       query: ({ id, data }) => ({ url: `/students/${id}/guardians`, method: "POST", data }),
       invalidatesTags: [tagTypes.students],
     }),
-    createStudentLogins: build.mutation<TLoginsResult, { id: string; student: boolean; guardianIds: string[] }>({
+    getStudentAttendance: build.query<TStudentAttendance, { id: string; from: string; to: string }>({
+      query: ({ id, from, to }) => ({ url: `/attendance/report/student/${id}`, method: "GET", params: { from, to } }),
+      providesTags: [tagTypes.attendance],
+    }),
+    getStudentLedger: build.query<TStudentLedger, string>({
+      query: (id) => ({ url: `/students/${id}/ledger`, method: "GET" }),
+      providesTags: [tagTypes.dues],
+    }),
+    getStudentResults: build.query<TStudentResult[], string>({
+      query: (id) => ({ url: `/students/${id}/results`, method: "GET" }),
+      providesTags: [tagTypes.results],
+    }),
+    createStudentLogins:build.mutation<TLoginsResult, { id: string; student: boolean; guardianIds: string[] }>({
       query: ({ id, ...data }) => ({ url: `/students/${id}/create-login`, method: "POST", data }),
       invalidatesTags: [tagTypes.students],
     }),
@@ -63,5 +78,8 @@ export const {
   useChangeEnrolmentMutation,
   useDeleteStudentMutation,
   useAttachGuardianMutation,
+  useGetStudentAttendanceQuery,
+  useGetStudentLedgerQuery,
+  useGetStudentResultsQuery,
   useCreateStudentLoginsMutation,
 } = studentApi;

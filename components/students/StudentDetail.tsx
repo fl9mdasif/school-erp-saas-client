@@ -12,6 +12,9 @@ import { useT } from "@/lib/i18n/useT";
 import { useGetStudentQuery } from "@/redux/api/studentApi";
 import { ProfileTab } from "./ProfileTab";
 import { EnrolmentsTab } from "./EnrolmentsTab";
+import { StudentAttendanceTab } from "./StudentAttendanceTab";
+import { StudentFeesTab } from "./StudentFeesTab";
+import { StudentResultsTab } from "./StudentResultsTab";
 import { StudentStatusChip } from "./StudentStatusChip";
 
 export function StudentDetail({ id }: { id: string }) {
@@ -57,9 +60,21 @@ export function StudentDetail({ id }: { id: string }) {
         <TabsList aria-label={t("stu.detail.tabs")}>
           <TabsTrigger value="profile">{t("stu.tab.profile")}</TabsTrigger>
           <TabsTrigger value="enrolments">{t("stu.tab.enrolments")}</TabsTrigger>
+          <TabsTrigger value="attendance">{t("stu.tab.attendance")}</TabsTrigger>
+          <TabsTrigger value="fees">{t("stu.tab.fees")}</TabsTrigger>
+          <TabsTrigger value="results">{t("stu.tab.results")}</TabsTrigger>
         </TabsList>
         <TabsContent value="profile">
           <ProfileTab student={s} />
+        </TabsContent>
+        <TabsContent value="attendance">
+          <StudentAttendanceTab studentId={s._id} />
+        </TabsContent>
+        <TabsContent value="fees">
+          <StudentFeesTab studentId={s._id} />
+        </TabsContent>
+        <TabsContent value="results">
+          <StudentResultsTab studentId={s._id} />
         </TabsContent>
         <TabsContent value="enrolments">
           <EnrolmentsTab student={s} />
