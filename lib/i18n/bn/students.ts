@@ -4,6 +4,7 @@ export const students: Record<keyof typeof en, string> = {
   "stu.desc": "প্রতিষ্ঠানের সব {student}। প্রোফাইল, ফি ও ফলাফল দেখতে একটি খুলুন।",
   "stu.add": "{student} যোগ করুন",
   "stu.import": "CSV ইমপোর্ট",
+  "stu.export": "CSV এক্সপোর্ট",
   "stu.search": "নাম, আইডি বা ভর্তি নম্বর দিয়ে খুঁজুন",
   "stu.allClasses": "সব {class}",
   "stu.allSections": "সব {section}",

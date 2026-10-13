@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Upload } from "lucide-react";
+import { Download, Plus, Upload } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
@@ -9,6 +9,9 @@ import { PageHeader } from "@/components/common/PageHeader";
 import { SearchInput } from "@/components/common/SearchInput";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
+import toast from "react-hot-toast";
+import { downloadFile } from "@/lib/download";
+import { getApiErrorMessage } from "@/lib/errors";
 import { formatNumber } from "@/lib/format";
 import { useT } from "@/lib/i18n/useT";
 import { useUrlState } from "@/lib/useUrlState";
@@ -45,6 +48,17 @@ export function StudentsList() {
     sessionId: sessionId || undefined,
   };
   const { data, isLoading, isFetching, error, refetch } = useGetStudentsQuery(params);
+
+  const exportCsv = async () => {
+    const { page: _page, limit: _limit, ...filters } = params;
+    void _page;
+    void _limit;
+    try {
+      await downloadFile("/students/export", "students.csv", filters);
+    } catch (err) {
+      toast.error(getApiErrorMessage(err, t));
+    }
+  };
 
   const className = useMemo(() => new Map((classes.data?.rows ?? []).map((c) => [c._id, c.name])), [classes.data]);
   const sectionName = useMemo(() => new Map((sections.data?.rows ?? []).map((s) => [s._id, s.name])), [sections.data]);
@@ -92,6 +106,10 @@ export function StudentsList() {
         description={t("stu.desc", { student: term("student") })}
         action={
           <>
+            <Button variant="outline" onClick={exportCsv}>
+              <Download aria-hidden="true" />
+              {t("stu.export")}
+            </Button>
             <Button variant="outline" asChild>
               <Link href="/dashboard/students/promote">{t("promo.open")}</Link>
             </Button>

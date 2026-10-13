@@ -2,6 +2,7 @@ export const students = {
   "stu.desc": "Every {student} in the institution. Open one to see the profile, fees and results.",
   "stu.add": "Add {student}",
   "stu.import": "Import CSV",
+  "stu.export": "Export CSV",
   "stu.search": "Search by name, ID or admission number",
   "stu.allClasses": "All {class}",
   "stu.allSections": "All {section}",
