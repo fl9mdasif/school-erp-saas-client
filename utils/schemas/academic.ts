@@ -47,3 +47,13 @@ export const subjectSchema = z.object({
 });
 
 export type TSubjectForm = z.infer<typeof subjectSchema>;
+
+export const classSubjectSchema = z.object({
+  subjectId: z.string().min(1, "val.required"),
+  kind: z.enum(["compulsory", "optional", "fourth"]),
+  teacherId: z.string(),
+  fullMarks: z.string().trim().refine((v) => v === "" || /^\d+$/.test(v), "val.positive"),
+  passMarks: z.string().trim().refine((v) => v === "" || /^\d+$/.test(v), "val.positive"),
+});
+
+export type TClassSubjectForm = z.infer<typeof classSubjectSchema>;
