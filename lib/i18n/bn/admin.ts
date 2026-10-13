@@ -30,4 +30,9 @@ export const admin: Record<keyof typeof en, string> = {
   "ad.setup.students": "প্রথম {student} যোগ করুন",
   "ad.setup.staff": "শিক্ষক বা হিসাবরক্ষক যোগ করুন",
   "ad.setup.notice": "প্রথম নোটিশ প্রকাশ করুন",
+  "ad.recent.inquiries": "নতুন অনুসন্ধান",
+  "ad.recent.notices": "সাম্প্রতিক নোটিশ",
+  "ad.recent.viewAll": "সব দেখুন",
+  "ad.recent.noInquiries": "কোনো নতুন অনুসন্ধান নেই।",
+  "ad.recent.noNotices": "এখনো কোনো নোটিশ প্রকাশ হয়নি।",
 };

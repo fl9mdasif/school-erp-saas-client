@@ -4,3 +4,4 @@ export * from "./auth";
 export * from "./platform";
 export * from "./dashboard";
 export * from "./academic";
+export * from "./communication";

@@ -4,6 +4,7 @@ import { Banknote, Bell, CalendarCheck, GraduationCap, Inbox, UserPlus, Users } 
 import Link from "next/link";
 import { ErrorState } from "@/components/common/ErrorState";
 import { OnboardingChecklist } from "./OnboardingChecklist";
+import { RecentActivity } from "./RecentActivity";
 import { PageHeader } from "@/components/common/PageHeader";
 import { StatCard } from "@/components/common/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -95,6 +96,8 @@ export function AdminHome() {
           </CardContent>
         </Card>
       </div>
+
+      <RecentActivity />
     </>
   );
 }

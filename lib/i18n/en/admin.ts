@@ -28,4 +28,9 @@ export const admin = {
   "ad.setup.students": "Add the first {student}",
   "ad.setup.staff": "Invite a teacher or accountant",
   "ad.setup.notice": "Publish your first notice",
+  "ad.recent.inquiries": "New inquiries",
+  "ad.recent.notices": "Latest notices",
+  "ad.recent.viewAll": "View all",
+  "ad.recent.noInquiries": "No new inquiries.",
+  "ad.recent.noNotices": "No notices published yet.",
 } as const;
