@@ -9,7 +9,7 @@ const base = {
   phone: z.string().trim().refine((v) => v === "" || normalizeBdPhone(v) !== null, "val.phone"),
 };
 
-const needsContact = { path: ["email"], message: "val.emailOrPhone" } as const;
+const needsContact = { path: ["email"], message: "val.emailOrPhone" };
 
 export const staffCreateSchema = z
   .object({
