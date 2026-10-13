@@ -110,4 +110,7 @@ export const platform: Record<keyof typeof en, string> = {
   "pf.plans.saved": "প্ল্যান সংরক্ষিত",
   "pf.plans.hidden": "লুকানো",
   "pf.plans.empty": "এখনো কোনো প্ল্যান নেই",
+  "val.positive": "১ বা তার বেশি পূর্ণসংখ্যা দিন",
+  "val.dateOrder": "শেষ তারিখ শুরুর তারিখের পরে হতে হবে",
+  "val.slug": "ছোট হাতের অক্ষর, সংখ্যা, হাইফেন ও আন্ডারস্কোর ব্যবহার করুন",
 };

@@ -108,4 +108,7 @@ export const platform = {
   "pf.plans.saved": "Plan saved",
   "pf.plans.hidden": "Hidden",
   "pf.plans.empty": "No plans yet",
+  "val.positive": "Enter a whole number, 1 or more",
+  "val.dateOrder": "The end date must be after the start date",
+  "val.slug": "Use lowercase letters, numbers, hyphens and underscores",
 } as const;
