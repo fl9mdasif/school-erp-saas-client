@@ -1,7 +1,7 @@
 import type { BaseQueryFn } from "@reduxjs/toolkit/query";
-import { AxiosRequestConfig, AxiosError } from "axios";
+import { AxiosRequestConfig } from "axios";
 import { instance as axiosInstance } from "./axiosInstance";
-import { TMeta, TApiError } from "@/types/common";
+import { TMeta, TApiError } from "@/types";
 
 export const axiosBaseQuery =
   (
@@ -13,31 +13,40 @@ export const axiosBaseQuery =
       data?: AxiosRequestConfig["data"];
       params?: AxiosRequestConfig["params"];
       headers?: AxiosRequestConfig["headers"];
+      responseType?: AxiosRequestConfig["responseType"];
       meta?: TMeta;
       contentType?: string;
     },
     unknown,
-    unknown
+    TApiError
   > =>
-    async ({ url, method, data, params, contentType }) => {
+    async ({ url, method, data, params, headers, responseType, contentType }) => {
       try {
         const result = await axiosInstance({
           url: baseUrl + url,
           method,
           data,
           params,
+          responseType,
           headers: {
-            "Content-Type": contentType || "application/json",
+            // FormData sets its own multipart boundary
+            ...(data instanceof FormData
+              ? {}
+              : { "Content-Type": contentType || "application/json" }),
+            ...headers,
           },
         });
         return result;
-      } catch (axiosError) {
-        const error = axiosError as AxiosError;
-        const err = (error.response?.data as TApiError) || error;
+      } catch (error) {
+        // axiosInstance already turned every failure into a TApiError
+        const err = error as TApiError;
         return {
           error: {
-            status: error.response?.status || 500,
-            data: err.message || error.message || "An unexpected error occurred",
+            status: err.status ?? 500,
+            code: err.code ?? "UNKNOWN_ERROR",
+            message: err.message ?? "An unexpected error occurred",
+            details: err.details,
+            retryAfter: err.retryAfter,
           },
         };
       }

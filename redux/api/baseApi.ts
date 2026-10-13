@@ -4,11 +4,12 @@ import { axiosBaseQuery } from "@/helpers/axios/axiosBaseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { tagTypesList } from "../tag-types";
 
-// Define a service using a base URL and expected endpoints
+// Define a service using a base URL and expected endpoints.
+// The base URL is same origin: Next rewrites /api/v1 to the Express API.
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: axiosBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_BACKEND_API_URL as string,
+    baseUrl: (process.env.NEXT_PUBLIC_BACKEND_API_URL as string) ?? "/api/v1",
   }),
   endpoints: (builder) => ({}),
   tagTypes: tagTypesList,
