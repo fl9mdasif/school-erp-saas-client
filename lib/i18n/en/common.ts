@@ -4,6 +4,7 @@ export const common = {
   "common.saveAndAdd": "Save and add another",
   "common.cancel": "Cancel",
   "common.confirm": "Confirm",
+  "common.continue": "Continue",
   "common.back": "Back",
   "common.next": "Next",
   "common.add": "Add",

@@ -16,6 +16,7 @@ import { StudentAttendanceTab } from "./StudentAttendanceTab";
 import { StudentFeesTab } from "./StudentFeesTab";
 import { StudentResultsTab } from "./StudentResultsTab";
 import { StudentStatusChip } from "./StudentStatusChip";
+import { StudentActions } from "./StudentActions";
 
 export function StudentDetail({ id }: { id: string }) {
   const { t, term, lang } = useT();
@@ -42,12 +43,15 @@ export function StudentDetail({ id }: { id: string }) {
         title={lang === "bn" && s.nameBn ? s.nameBn : s.name}
         description={`${t("stu.detail.id")}: ${s.studentId}`}
         action={
-          <Button variant="outline" asChild>
-            <Link href={`/dashboard/students/${s._id}/edit`}>
-              <Pencil aria-hidden="true" />
-              {t("common.edit")}
-            </Link>
-          </Button>
+          <>
+            <Button variant="outline" asChild>
+              <Link href={`/dashboard/students/${s._id}/edit`}>
+                <Pencil aria-hidden="true" />
+                {t("common.edit")}
+              </Link>
+            </Button>
+            <StudentActions student={s} />
+          </>
         }
       />
 

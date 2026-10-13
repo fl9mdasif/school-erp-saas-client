@@ -6,6 +6,7 @@ export const common: Record<keyof typeof en, string> = {
   "common.saveAndAdd": "সংরক্ষণ করে আরেকটি যোগ করুন",
   "common.cancel": "বাতিল",
   "common.confirm": "নিশ্চিত করুন",
+  "common.continue": "এগিয়ে যান",
   "common.back": "পিছনে",
   "common.next": "পরবর্তী",
   "common.add": "যোগ করুন",
