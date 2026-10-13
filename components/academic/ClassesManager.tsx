@@ -1,10 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowDown, ArrowUp, Loader2, Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Loader2, Pencil, Plus, Trash2, Wand2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { QuickSetupDialog } from "./QuickSetupDialog";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
@@ -35,7 +36,7 @@ import type { TClass, TSection } from "@/types";
 import { classSchema, sectionSchema, type TClassForm, type TSectionForm } from "@/utils/schemas/academic";
 import { cn } from "@/lib/utils";
 
-type Editing = { kind: "class"; item: TClass | null } | { kind: "section"; item: TSection | null } | null;
+type Editing = { kind: "quick" } | { kind: "class"; item: TClass | null } | { kind: "section"; item: TSection | null } | null;
 type Removing = { kind: "class"; item: TClass } | { kind: "section"; item: TSection } | null;
 
 export function ClassesManager() {
@@ -88,10 +89,16 @@ export function ClassesManager() {
         title={t("ac.cls.title", { class: term("class"), section: term("section") })}
         description={t("ac.cls.desc")}
         action={
-          <Button onClick={() => setEditing({ kind: "class", item: null })}>
-            <Plus aria-hidden="true" />
-            {t("ac.cls.add", { class: term("class") })}
-          </Button>
+          <>
+            <Button variant="outline" onClick={() => setEditing({ kind: "quick" })}>
+              <Wand2 aria-hidden="true" />
+              {t("ac.quick.open")}
+            </Button>
+            <Button onClick={() => setEditing({ kind: "class", item: null })}>
+              <Plus aria-hidden="true" />
+              {t("ac.cls.add", { class: term("class") })}
+            </Button>
+          </>
         }
       />
 
@@ -177,6 +184,7 @@ export function ClassesManager() {
         </div>
       )}
 
+      {editing?.kind === "quick" ? <QuickSetupDialog startOrder={list.length + 1} onClose={() => setEditing(null)} /> : null}
       {editing?.kind === "class" ? <ClassDialog item={editing.item} nextOrder={list.length + 1} onClose={() => setEditing(null)} /> : null}
       {editing?.kind === "section" && selected ? <SectionDialog item={editing.item} classId={selected._id} onClose={() => setEditing(null)} /> : null}
 
