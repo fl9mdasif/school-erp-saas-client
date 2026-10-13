@@ -8,3 +8,4 @@ export * from "./communication";
 export * from "./staff";
 export * from "./student";
 export * from "./attendance";
+export * from "./fees";

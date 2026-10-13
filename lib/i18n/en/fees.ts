@@ -1,0 +1,16 @@
+export const fees = {
+  "fee.head.title": "Fee heads",
+  "fee.head.desc": "The kinds of fee you charge, such as tuition or exam fee. Heads are switched off, never deleted, so old invoices stay readable.",
+  "fee.head.add": "Add fee head",
+  "fee.head.edit": "Edit fee head",
+  "fee.head.name": "Name",
+  "fee.head.code": "Code",
+  "fee.head.codeHint": "Capital letters, digits and underscore, for example TUITION. Cannot change later.",
+  "fee.head.kind": "Type",
+  "fee.head.kind.recurring": "Recurring",
+  "fee.head.kind.one_time": "One time",
+  "fee.head.saved": "Fee head saved",
+  "fee.head.empty": "No fee heads yet",
+  "fee.head.emptyDesc": "Add tuition and any other fee you collect.",
+  "val.feeCode": "Use 2 to 20 capital letters, digits or underscore",
+} as const;
