@@ -45,4 +45,9 @@ export const common: Record<keyof typeof en, string> = {
   "common.offline": "আপনি অফলাইনে আছেন। আপনার লেখা এই পাতায় রাখা আছে।",
   "common.page": "পাতা {page} / {pages}",
   "common.rows": "{count}টি সারি",
+  "common.typeToConfirm": "নিশ্চিত করতে {text} লিখুন",
+  "common.previous": "আগের",
+  "common.required": "আবশ্যক",
+  "common.showing": "মোট {total}টির মধ্যে {from} থেকে {to}",
+  "common.somethingWrong": "কিছু একটা ভুল হয়েছে",
 };

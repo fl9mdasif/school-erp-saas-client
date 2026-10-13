@@ -43,4 +43,9 @@ export const common = {
   "common.offline": "You are offline. Your changes are kept on this page.",
   "common.page": "Page {page} of {pages}",
   "common.rows": "{count} rows",
+  "common.typeToConfirm": "Type {text} to confirm",
+  "common.previous": "Previous",
+  "common.required": "Required",
+  "common.showing": "Showing {from} to {to} of {total}",
+  "common.somethingWrong": "Something went wrong",
 } as const;
