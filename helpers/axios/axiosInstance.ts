@@ -16,7 +16,7 @@ type RetryableConfig = InternalAxiosRequestConfig & { _retried?: boolean };
 // Only one refresh runs at a time; every request that hit a 401 waits for the same one.
 let refreshing: Promise<string | null> | null = null;
 
-const refreshAccessToken = (): Promise<string | null> => {
+export const refreshAccessToken = (): Promise<string | null> => {
   if (!refreshing) {
     refreshing = axios
       .post(

@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { clearSessionFlag, setSessionFlag } from "@/lib/sessionFlag";
 import { tokenStore } from "@/lib/tokenStore";
 import { baseApi } from "./api/baseApi";
 import { reducer } from "./rootReducer";
@@ -10,15 +11,22 @@ export const store = configureStore({
     getDefaultMiddleware().concat(baseApi.middleware),
 });
 
-// Keep the in-memory token holder (used by axios) in step with the store
+// Keep the in-memory token holder (used by axios) and the non-secret session flag cookie
+// (read by proxy.ts) in step with the store
+let hadToken = false;
 store.subscribe(() => {
-  tokenStore.set(store.getState().auth.accessToken);
+  const token = store.getState().auth.accessToken;
+  tokenStore.set(token);
+  if (token && !hadToken) setSessionFlag();
+  if (!token && hadToken) clearSessionFlag();
+  hadToken = !!token;
 });
 
 // A silent refresh updates the token; a failed refresh ends the session and drops cached data
 tokenStore.setHandlers({
   onTokenRefreshed: (token) => store.dispatch(setAccessToken(token)),
   onSessionExpired: () => {
+    clearSessionFlag();
     store.dispatch(clearSession());
     store.dispatch(baseApi.util.resetApiState());
   },
