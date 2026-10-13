@@ -26,3 +26,24 @@ export const sectionSchema = z.object({
 
 export type TClassForm = z.infer<typeof classSchema>;
 export type TSectionForm = z.infer<typeof sectionSchema>;
+
+const componentSchema = z
+  .object({
+    key: z.string().trim().min(1, "val.required").max(20),
+    label: z.string().trim().min(1, "val.required").max(40),
+    fullMarks: z.number({ message: "val.required" }).min(0).max(1000),
+    passMarks: z.number({ message: "val.required" }).min(0).max(1000),
+  })
+  .refine((c) => c.passMarks <= c.fullMarks, { path: ["passMarks"], message: "val.passOver" });
+
+export const subjectSchema = z.object({
+  name: z.string().trim().min(1, "val.required").max(80),
+  nameBn: z.string().trim().max(80).optional(),
+  code: z.string().trim().max(20).optional(),
+  components: z
+    .array(componentSchema)
+    .max(8)
+    .refine((cs) => new Set(cs.map((c) => c.key)).size === cs.length, "val.keysUnique"),
+});
+
+export type TSubjectForm = z.infer<typeof subjectSchema>;
