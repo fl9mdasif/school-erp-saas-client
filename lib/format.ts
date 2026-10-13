@@ -80,3 +80,13 @@ export const normalizeBdPhone = (input: string): string | null => {
   const m = digits.match(/^(?:\+?88)?(01[3-9]\d{8})$/);
   return m ? m[1] : null;
 };
+
+/** An ISO timestamp (UTC) to the business date it falls on in Asia/Dhaka, as YYYY-MM-DD. */
+export const isoToLocalDate = (iso: string): string => todayLocal(new Date(iso));
+
+/** Whole days from today (Dhaka) to a business date. Negative when it is in the past. */
+export const daysUntil = (date: string, now: Date = new Date()): number => {
+  const a = Date.parse(`${todayLocal(now)}T00:00:00Z`);
+  const b = Date.parse(`${date}T00:00:00Z`);
+  return Math.round((b - a) / 86_400_000);
+};

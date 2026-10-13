@@ -1,5 +1,5 @@
-import { PageHeader } from "@/components/common/PageHeader";
+import { PlatformOverview } from "@/components/platform/PlatformOverview";
 
 export default function PlatformHomePage() {
-  return <PageHeader title="Platform console" description="Built in Stage R1." />;
+  return <PlatformOverview />;
 }
