@@ -3,7 +3,16 @@ import { cn } from "@/lib/utils";
 const platformName = process.env.NEXT_PUBLIC_PLATFORM_NAME ?? "xyz";
 
 /** Logo mark (A, অ, ا in teal on navy) and the product name. Replace the mark when the brand is final. */
-export function Brand({ compact = false, className }: { compact?: boolean; className?: string }) {
+export function Brand({
+  compact = false,
+  onLight = false,
+  className,
+}: {
+  compact?: boolean;
+  /** Navy text for use on a light header instead of white text on navy. */
+  onLight?: boolean;
+  className?: string;
+}) {
   return (
     <span className={cn("flex items-center gap-2", className)}>
       <span
@@ -12,7 +21,7 @@ export function Brand({ compact = false, className }: { compact?: boolean; class
       >
         অ
       </span>
-      {compact ? null : <span className="truncate text-base font-semibold text-white">{platformName}</span>}
+      {compact ? null : <span className={cn("truncate text-base font-semibold", onLight ? "text-navy" : "text-white")}>{platformName}</span>}
     </span>
   );
 }
