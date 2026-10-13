@@ -1,5 +1,7 @@
 import type {
   TGuardianInput,
+  TImportCommit,
+  TImportDryRun,
   TLoginsResult,
   TPaged,
   TStudent,
@@ -62,7 +64,18 @@ export const studentApi = baseApi.injectEndpoints({
       query: (id) => ({ url: `/students/${id}/results`, method: "GET" }),
       providesTags: [tagTypes.results],
     }),
-    createStudentLogins:build.mutation<TLoginsResult, { id: string; student: boolean; guardianIds: string[] }>({
+    importDryRun: build.mutation<TImportDryRun, File>({
+      query: (file) => {
+        const data = new FormData();
+        data.append("file", file);
+        return { url: "/students/import/dry-run", method: "POST", data };
+      },
+    }),
+    importCommit: build.mutation<TImportCommit, string>({
+      query: (jobId) => ({ url: `/students/import/${jobId}/commit`, method: "POST" }),
+      invalidatesTags: [tagTypes.students, tagTypes.dashboard],
+    }),
+    createStudentLogins: build.mutation<TLoginsResult, { id: string; student: boolean; guardianIds: string[] }>({
       query: ({ id, ...data }) => ({ url: `/students/${id}/create-login`, method: "POST", data }),
       invalidatesTags: [tagTypes.students],
     }),
@@ -81,5 +94,7 @@ export const {
   useGetStudentAttendanceQuery,
   useGetStudentLedgerQuery,
   useGetStudentResultsQuery,
+  useImportDryRunMutation,
+  useImportCommitMutation,
   useCreateStudentLoginsMutation,
 } = studentApi;

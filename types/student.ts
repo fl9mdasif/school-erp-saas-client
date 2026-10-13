@@ -126,3 +126,17 @@ export type TStudentResult = {
   positionInClass?: number;
   status: "draft" | "published";
 };
+
+export type TImportRowError = { row: number; field: string; message: string };
+
+export type TImportDryRun = {
+  jobId: string;
+  status: string;
+  fileName: string;
+  totalRows: number;
+  validRows: number;
+  errorCount: number;
+  errors: TImportRowError[];
+};
+
+export type TImportCommit = { jobId: string; status: "committed"; created: number; guardiansReused: number };
