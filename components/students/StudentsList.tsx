@@ -93,6 +93,9 @@ export function StudentsList() {
         action={
           <>
             <Button variant="outline" asChild>
+              <Link href="/dashboard/students/promote">{t("promo.open")}</Link>
+            </Button>
+            <Button variant="outline" asChild>
               <Link href="/dashboard/students/import">
                 <Upload aria-hidden="true" />
                 {t("stu.import")}

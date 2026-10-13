@@ -140,3 +140,24 @@ export type TImportDryRun = {
 };
 
 export type TImportCommit = { jobId: string; status: "committed"; created: number; guardiansReused: number };
+
+export type TPromoteInput = {
+  fromSessionId: string;
+  toSessionId: string;
+  fromClassId: string;
+  toClassId?: string;
+  toSectionId?: string;
+  studentIds?: string[];
+  repeatStudentIds: string[];
+  rollMode: "previous_roll" | "name";
+  passOut: boolean;
+};
+
+export type TPromotionResult = {
+  dryRun: boolean;
+  promote: number;
+  repeat: number;
+  passOut: number;
+  conflicts: { studentId: string; reason: string }[];
+  preview: { studentId: string; name: string; action: "promote" | "repeat"; roll: number }[];
+};

@@ -2,6 +2,8 @@ import type {
   TGuardianInput,
   TImportCommit,
   TImportDryRun,
+  TPromoteInput,
+  TPromotionResult,
   TLoginsResult,
   TPaged,
   TStudent,
@@ -64,6 +66,13 @@ export const studentApi = baseApi.injectEndpoints({
       query: (id) => ({ url: `/students/${id}/results`, method: "GET" }),
       providesTags: [tagTypes.results],
     }),
+    previewPromotion: build.mutation<TPromotionResult, TPromoteInput>({
+      query: (data) => ({ url: "/students/promote", method: "POST", params: { dryRun: "true" }, data }),
+    }),
+    commitPromotion: build.mutation<TPromotionResult, TPromoteInput>({
+      query: (data) => ({ url: "/students/promote", method: "POST", params: { dryRun: "false" }, data }),
+      invalidatesTags: [tagTypes.students, tagTypes.dashboard],
+    }),
     importDryRun: build.mutation<TImportDryRun, File>({
       query: (file) => {
         const data = new FormData();
@@ -94,6 +103,8 @@ export const {
   useGetStudentAttendanceQuery,
   useGetStudentLedgerQuery,
   useGetStudentResultsQuery,
+  usePreviewPromotionMutation,
+  useCommitPromotionMutation,
   useImportDryRunMutation,
   useImportCommitMutation,
   useCreateStudentLoginsMutation,
