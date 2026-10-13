@@ -29,13 +29,23 @@ export function Sidebar() {
         collapsed ? "lg:w-[4.5rem]" : "lg:w-64"
       )}
     >
-      <div className={cn("flex h-16 items-center border-b border-sidebar-border px-4", collapsed && "lg:justify-center lg:px-0")}>
+      <div className={cn("flex h-16 items-center justify-between gap-2 border-b border-sidebar-border px-4", collapsed && "lg:justify-center lg:px-0")}>
         <span className="lg:hidden">
           <Brand compact />
         </span>
-        <span className="hidden lg:block">
-          <Brand compact={collapsed} />
+        {/* on desktop the brand is hidden when collapsed so the expand icon takes its place at the top */}
+        <span className={cn("hidden min-w-0 lg:block", collapsed && "lg:hidden")}>
+          <Brand />
         </span>
+        <button
+          type="button"
+          onClick={() => dispatch(toggleSidebar())}
+          aria-label={collapsed ? t("nav.expand") : t("nav.collapse")}
+          aria-expanded={!collapsed}
+          className="hidden size-11 shrink-0 place-items-center rounded-md text-sidebar-muted transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground lg:grid"
+        >
+          {collapsed ? <ChevronsRight className="size-5" aria-hidden="true" /> : <ChevronsLeft className="size-5" aria-hidden="true" />}
+        </button>
       </div>
 
       <nav aria-label={t("nav.menu")} className="flex-1 overflow-y-auto p-3">
@@ -55,17 +65,6 @@ export function Sidebar() {
         <AccountCard compact={collapsed} />
       </div>
 
-      <div className="hidden border-t border-sidebar-border p-3 lg:block">
-        <button
-          type="button"
-          onClick={() => dispatch(toggleSidebar())}
-          aria-label={collapsed ? t("nav.expand") : t("nav.collapse")}
-          className="flex min-h-11 w-full items-center justify-center gap-2 rounded-md text-sm text-sidebar-muted transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-        >
-          {collapsed ? <ChevronsRight className="size-5" /> : <ChevronsLeft className="size-5" />}
-          {collapsed ? null : <span>{t("nav.collapse")}</span>}
-        </button>
-      </div>
     </aside>
   );
 }
