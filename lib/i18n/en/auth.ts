@@ -84,4 +84,7 @@ export const auth = {
   "reset.title": "Set a new password",
   "reset.submit": "Update password",
   "reset.done": "Password updated. Please sign in.",
+  "auth.offline.title": "We cannot reach the server",
+  "auth.offline.body": "The connection dropped or the server is restarting. You are still signed in. Try again in a moment.",
+  "auth.offline.retry": "Try again",
 } as const;

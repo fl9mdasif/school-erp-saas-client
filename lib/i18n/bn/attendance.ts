@@ -1,0 +1,25 @@
+import type { attendance as en } from "../en/attendance";
+
+export const attendance: Record<keyof typeof en, string> = {
+  "att.take.title": "উপস্থিতি নিন",
+  "att.take.desc": "সবাই শুরুতে উপস্থিত থাকে। শুধু ব্যতিক্রম বদলে জমা দিন।",
+  "att.take.date": "তারিখ",
+  "att.take.noSections": "উপস্থিতি নেওয়ার মতো কোনো {section} নেই",
+  "att.take.noSectionsDesc": "আগে শ্রেণি যোগ করে শিক্ষার্থী ভর্তি করুন। শিক্ষক শুধু নিজের শ্রেণি দেখেন।",
+  "att.take.noStudents": "এই শ্রেণিতে কোনো সক্রিয় {student} নেই",
+  "att.status.present": "উপস্থিত",
+  "att.status.absent": "অনুপস্থিত",
+  "att.status.late": "বিলম্বে",
+  "att.status.leave": "ছুটি",
+  "att.take.allPresent": "সবাই উপস্থিত",
+  "att.take.submit": "উপস্থিতি জমা দিন",
+  "att.take.update": "উপস্থিতি হালনাগাদ",
+  "att.take.retry": "আবার চেষ্টা করুন",
+  "att.take.saved": "উপস্থিতি সংরক্ষিত",
+  "att.take.updated": "উপস্থিতি হালনাগাদ হয়েছে",
+  "att.take.alreadyTaken": "এই দিনের উপস্থিতি আগেই নেওয়া হয়েছে।",
+  "att.take.editing": "এই দিনের উপস্থিতি নেওয়া হয়ে গেছে। এখানে ঠিক করতে পারেন।",
+  "att.take.closed": "এই শিটটি আর সম্পাদনা করা যাবে না ({hours} ঘণ্টা পার হয়েছে)। অ্যাডমিনকে ঠিক করতে বলুন।",
+  "att.take.draftRestored": "এই দিনের সংরক্ষিত না হওয়া পরিবর্তন ফিরিয়ে আনা হয়েছে।",
+  "att.take.weekend": "এটি সাপ্তাহিক ছুটির দিন। তবুও উপস্থিতি নিতে টিক দিন।",
+};

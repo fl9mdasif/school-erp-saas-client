@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { TAuthUser, TMe, TTenantSummary } from "@/types";
 import { authApi } from "../api/authApi";
 
-export type TAuthStatus = "idle" | "loading" | "authenticated" | "unauthenticated";
+export type TAuthStatus = "idle" | "loading" | "authenticated" | "unauthenticated" | "offline";
 
 type TAuthState = {
   /** Kept in memory only. Never written to localStorage, a cookie or a URL. */

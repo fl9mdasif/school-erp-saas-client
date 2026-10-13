@@ -85,4 +85,7 @@ export const auth: Record<keyof typeof en, string> = {
   "reset.title": "নতুন পাসওয়ার্ড দিন",
   "reset.submit": "পাসওয়ার্ড আপডেট করুন",
   "reset.done": "পাসওয়ার্ড আপডেট হয়েছে। এখন সাইন ইন করুন।",
+  "auth.offline.title": "সার্ভারের সাথে যোগাযোগ হচ্ছে না",
+  "auth.offline.body": "সংযোগ বিচ্ছিন্ন হয়েছে বা সার্ভার আবার চালু হচ্ছে। আপনি এখনো সাইন ইন আছেন। একটু পরে আবার চেষ্টা করুন।",
+  "auth.offline.retry": "আবার চেষ্টা করুন",
 };

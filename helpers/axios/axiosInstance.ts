@@ -16,20 +16,29 @@ type RetryableConfig = InternalAxiosRequestConfig & { _retried?: boolean };
 // Only one refresh runs at a time; every request that hit a 401 waits for the same one.
 let refreshing: Promise<string | null> | null = null;
 
+/** True when the last refresh failed because the API could not be reached (down, offline, 5xx), not because the session ended. */
+export let refreshUnreachable = false;
+
 export const refreshAccessToken = (): Promise<string | null> => {
   if (!refreshing) {
     refreshing = axios
       .post(
         `${baseURL}/auth/refresh`,
         {},
-        { withCredentials: true, headers: { "X-Requested-With": "fetch" } }
+        { withCredentials: true, headers: { "X-Requested-With": "fetch" }, timeout: 10000 }
       )
       .then((res) => {
+        refreshUnreachable = false;
         const token: string | undefined = res.data?.data?.accessToken;
         if (token) tokenStore.tokenRefreshed(token);
         return token ?? null;
       })
-      .catch(() => null)
+      .catch((err: AxiosError) => {
+        // 401/403 means the session really ended; anything else means we could not ask
+        const status = err.response?.status ?? 0;
+        refreshUnreachable = status === 0 || status >= 500;
+        return null;
+      })
       .finally(() => {
         refreshing = null;
       });

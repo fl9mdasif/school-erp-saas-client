@@ -8,6 +8,7 @@ import { platform as enPlatform } from "./en/platform";
 import { academic as enAcademic } from "./en/academic";
 import { staff as enStaff } from "./en/staff";
 import { students as enStudents } from "./en/students";
+import { attendance as enAttendance } from "./en/attendance";
 import { admin as enAdmin } from "./en/admin";
 import { common as bnCommon } from "./bn/common";
 import { errors as bnErrors } from "./bn/errors";
@@ -19,12 +20,13 @@ import { platform as bnPlatform } from "./bn/platform";
 import { academic as bnAcademic } from "./bn/academic";
 import { staff as bnStaff } from "./bn/staff";
 import { students as bnStudents } from "./bn/students";
+import { attendance as bnAttendance } from "./bn/attendance";
 import { admin as bnAdmin } from "./bn/admin";
 
 // Each module adds its own file under en/ and bn/ and spreads it here. The Bangla file is typed
 // from the English one, so a missing Bangla string is a compile error.
-export const en = { ...enCommon, ...enErrors, ...enNav, ...enUpload, ...enMarketing, ...enAuth, ...enPlatform, ...enAdmin, ...enAcademic, ...enStaff, ...enStudents };
-export const bn: Record<TKey, string> = { ...bnCommon, ...bnErrors, ...bnNav, ...bnUpload, ...bnMarketing, ...bnAuth, ...bnPlatform, ...bnAdmin, ...bnAcademic, ...bnStaff, ...bnStudents };
+export const en = { ...enCommon, ...enErrors, ...enNav, ...enUpload, ...enMarketing, ...enAuth, ...enPlatform, ...enAdmin, ...enAcademic, ...enStaff, ...enStudents, ...enAttendance };
+export const bn: Record<TKey, string> = { ...bnCommon, ...bnErrors, ...bnNav, ...bnUpload, ...bnMarketing, ...bnAuth, ...bnPlatform, ...bnAdmin, ...bnAcademic, ...bnStaff, ...bnStudents, ...bnAttendance };
 
 export type TKey = keyof typeof en;
 export type TLang = "bn" | "en";
