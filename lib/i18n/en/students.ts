@@ -1,0 +1,18 @@
+export const students = {
+  "stu.desc": "Every {student} in the institution. Open one to see the profile, fees and results.",
+  "stu.add": "Add {student}",
+  "stu.import": "Import CSV",
+  "stu.search": "Search by name, ID or admission number",
+  "stu.allClasses": "All {class}",
+  "stu.allSections": "All {section}",
+  "stu.allStatus": "All statuses",
+  "stu.col.name": "{student}",
+  "stu.col.status": "Status",
+  "stu.status.active": "Active",
+  "stu.status.transferred": "Transferred",
+  "stu.status.passed_out": "Passed out",
+  "stu.status.dropped": "Dropped",
+  "stu.status.inactive": "Inactive",
+  "stu.empty": "No {student} found",
+  "stu.emptyDesc": "Add one, import a CSV, or change the filters.",
+} as const;
