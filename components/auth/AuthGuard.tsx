@@ -25,6 +25,8 @@ type Props = {
 export function AuthGuard({ allow, children }: Props) {
   const { t } = useT();
   const dispatch = useAppDispatch();
+  const { t } = useT();
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
   const { status, user } = useAppSelector((s) => s.auth);
@@ -46,6 +48,16 @@ export function AuthGuard({ allow, children }: Props) {
       router.replace("/change-password");
     }
   }, [status, user, forbidden, pathname, router]);
+
+  if (status === "offline") {
+    return (
+      <div role="alert" className="mx-auto mt-24 max-w-md space-y-3 rounded-xl border border-border bg-card p-6 text-center">
+        <h1 className="text-lg font-semibold text-navy">{t("auth.offline.title")}</h1>
+        <p className="text-sm text-muted-foreground">{t("auth.offline.body")}</p>
+        <Button onClick={() => dispatch(setAuthStatus("idle"))}>{t("auth.offline.retry")}</Button>
+      </div>
+    );
+  }
 
   if (status === "offline") {
     return (

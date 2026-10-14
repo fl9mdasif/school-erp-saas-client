@@ -30,3 +30,16 @@ export const structureSchema = z.object({
 });
 
 export type TStructureForm = z.infer<typeof structureSchema>;
+
+export const adjustmentSchema = z
+  .object({
+    feeHeadId: z.string(),
+    type: z.enum(["percent", "fixed"]),
+    value: z.number({ message: "val.required" }).min(0),
+    reason: z.string().trim().min(3, "val.tooShort").max(300),
+    validFrom: z.string().trim(),
+    validTo: z.string().trim(),
+  })
+  .refine((v) => v.type !== "percent" || v.value <= 100, { message: "val.percentRange", path: ["value"] });
+
+export type TAdjustmentForm = z.infer<typeof adjustmentSchema>;
