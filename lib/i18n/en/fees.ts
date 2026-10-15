@@ -146,4 +146,23 @@ export const fees = {
   "fee.pay.reverseTitle": "Reverse this payment?",
   "fee.pay.reverseDesc": "The invoice returns to unpaid or partial. This cannot be undone.",
   "fee.pay.reversalReason": "Reversal reason",
+
+  "fee.dues.title": "Dues",
+  "fee.dues.desc": "Students with open invoices, oldest first, with the total at the top.",
+  "fee.dues.totalDue": "Total due",
+  "fee.dues.minAmount": "Minimum due",
+  "fee.dues.overdueOnly": "Overdue only",
+  "fee.dues.openInvoices": "Open invoices",
+  "fee.dues.oldestDue": "Oldest due date",
+  "fee.dues.empty": "No dues",
+
+  "fee.coll.title": "Collection reports",
+  "fee.coll.desc": "Money collected in a date range, grouped the way you need it.",
+  "fee.coll.groupBy": "Group by",
+  "fee.coll.groupBy.day": "Day",
+  "fee.coll.groupBy.method": "Method",
+  "fee.coll.groupBy.class": "Class",
+  "fee.coll.groupBy.feeHead": "Fee head",
+  "fee.coll.total": "Total collected",
+  "fee.coll.empty": "No collection in this range",
 } as const;

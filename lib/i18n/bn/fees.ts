@@ -148,4 +148,23 @@ export const fees: Record<keyof typeof en, string> = {
   "fee.pay.reverseTitle": "এই পরিশোধ বাতিল করবেন?",
   "fee.pay.reverseDesc": "চালানটি আবার অপরিশোধিত বা আংশিক হয়ে যাবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।",
   "fee.pay.reversalReason": "বাতিলের কারণ",
+
+  "fee.dues.title": "বাকি",
+  "fee.dues.desc": "যে শিক্ষার্থীদের চালান বাকি আছে, পুরোনোটি আগে, উপরে সর্বমোট।",
+  "fee.dues.totalDue": "সর্বমোট বাকি",
+  "fee.dues.minAmount": "সর্বনিম্ন বাকি",
+  "fee.dues.overdueOnly": "শুধু মেয়াদোত্তীর্ণ",
+  "fee.dues.openInvoices": "বাকি চালান",
+  "fee.dues.oldestDue": "সবচেয়ে পুরোনো বাকি তারিখ",
+  "fee.dues.empty": "কোনো বাকি নেই",
+
+  "fee.coll.title": "সংগ্রহ প্রতিবেদন",
+  "fee.coll.desc": "একটি তারিখ সীমার মধ্যে সংগৃহীত টাকা, আপনার প্রয়োজন অনুযায়ী ভাগ করা।",
+  "fee.coll.groupBy": "ভাগ করুন",
+  "fee.coll.groupBy.day": "দিন",
+  "fee.coll.groupBy.method": "মাধ্যম",
+  "fee.coll.groupBy.class": "শ্রেণি",
+  "fee.coll.groupBy.feeHead": "ফি খাত",
+  "fee.coll.total": "সর্বমোট সংগৃহীত",
+  "fee.coll.empty": "এই সময়ে কোনো সংগ্রহ নেই",
 };
