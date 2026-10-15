@@ -9,13 +9,15 @@ import { formatLocalDate, isoToLocalDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/useT";
 import { useUrlState } from "@/lib/useUrlState";
 import { useGetInquiriesQuery, useSetInquiryStatusMutation } from "@/redux/api/communicationApi";
+import { useAppSelector } from "@/redux/hooks";
 import type { TInquiry, TInquiryStatus } from "@/types";
 
 const DEFAULTS = { page: "1", status: "" };
 const STATUSES: TInquiryStatus[] = ["new", "contacted", "closed"];
 
 export function InquiriesInbox() {
-  const { t, lang, banglaDigits } = useT();
+  const { t, lang } = useT();
+  const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
   const url = useUrlState(DEFAULTS);
   const [setStatus] = useSetInquiryStatusMutation();

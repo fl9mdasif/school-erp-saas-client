@@ -60,7 +60,8 @@ export function CollectFee() {
 }
 
 function CollectForm({ student, onPaid }: { student: TStudent; onPaid: (id: string) => void }) {
-  const { t, tv, lang, banglaDigits } = useT();
+  const { t, tv, lang } = useT();
+  const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
   const invoices = useGetInvoicesQuery({ studentId: student._id, limit: 50 });
   const open = useMemo(

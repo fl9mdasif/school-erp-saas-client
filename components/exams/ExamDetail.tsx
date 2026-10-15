@@ -28,7 +28,7 @@ import {
   useUnlockMarksMutation,
 } from "@/redux/api/examApi";
 import { useAppSelector } from "@/redux/hooks";
-import type { TExam, TExamStatus, TMarkValue } from "@/types";
+import type { TExam, TExamStatus, TMarksSheet, TMarkValue } from "@/types";
 import { ResultsTab } from "./ResultsTab";
 
 const TONE: Record<TExamStatus, TTone> = { draft: "muted", marks_open: "info", marks_closed: "warning", published: "success" };
@@ -212,7 +212,7 @@ function MarksTab({ exam }: { exam: TExam }) {
   );
 }
 
-function MarksGrid({ examId, examStatus, classId, sectionId, subjectId, sheet }: { examId: string; examStatus: TExamStatus; classId: string; sectionId: string; subjectId: string; sheet: NonNullable<ReturnType<typeof useGetMarksSheetQuery>["data"]> }) {
+function MarksGrid({ examId, examStatus, classId, sectionId, subjectId, sheet }: { examId: string; examStatus: TExamStatus; classId: string; sectionId: string; subjectId: string; sheet: TMarksSheet }) {
   const { t } = useT();
   const [rows, setRows] = useState(sheet.rows);
   const [saveState, setSaveState] = useState<Record<string, "saving" | "saved" | "error">>({});

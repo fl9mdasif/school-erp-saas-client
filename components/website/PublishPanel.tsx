@@ -22,9 +22,9 @@ export function PublishPanel({ site }: { site: TSite }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const checklist = [
-    { key: "hero", ok: !!site.hero?.title },
-    { key: "about", ok: !!site.about },
-    { key: "contact", ok: !!site.contact?.phone || !!site.contact?.email },
+    { key: "hero" as const, label: t("web.checklist.hero"), ok: !!site.hero?.title },
+    { key: "about" as const, label: t("web.checklist.about"), ok: !!site.about },
+    { key: "contact" as const, label: t("web.checklist.contact"), ok: !!site.contact?.phone || !!site.contact?.email },
   ];
   const ready = checklist.every((c) => c.ok);
 
@@ -66,7 +66,7 @@ export function PublishPanel({ site }: { site: TSite }) {
             {checklist.map((c) => (
               <li key={c.key} className="flex items-center gap-2">
                 {c.ok ? <Check className="size-4 text-success" aria-hidden="true" /> : <X className="size-4 text-destructive" aria-hidden="true" />}
-                {t(`web.checklist.${c.key}`)}
+                {c.label}
               </li>
             ))}
           </ul>

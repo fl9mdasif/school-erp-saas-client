@@ -87,7 +87,4 @@ export const auth = {
   "auth.offline.title": "We cannot reach the server",
   "auth.offline.body": "The connection dropped or the server is restarting. You are still signed in. Try again in a moment.",
   "auth.offline.retry": "Try again",
-  "auth.offline.title": "We cannot reach the server",
-  "auth.offline.body": "The connection dropped or the server is restarting. You are still signed in. Try again in a moment.",
-  "auth.offline.retry": "Try again",
 } as const;

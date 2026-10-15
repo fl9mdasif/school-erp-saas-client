@@ -16,12 +16,14 @@ import { useT } from "@/lib/i18n/useT";
 import { useUrlState } from "@/lib/useUrlState";
 import { useGetClassesQuery } from "@/redux/api/academicApi";
 import { useGetDuesQuery } from "@/redux/api/feeReportApi";
+import { useAppSelector } from "@/redux/hooks";
 import type { TDueRow } from "@/types";
 
 const DEFAULTS = { page: "1", classId: "", minAmount: "", overdueOnly: "" };
 
 export function Dues() {
-  const { t, lang, banglaDigits, term } = useT();
+  const { t, lang, term } = useT();
+  const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
   const router = useRouter();
   const url = useUrlState(DEFAULTS);

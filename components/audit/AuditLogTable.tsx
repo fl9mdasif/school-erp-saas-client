@@ -14,11 +14,13 @@ import { formatLocalDate, isoToLocalDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/useT";
 import { useUrlState } from "@/lib/useUrlState";
 import { useGetAuditLogsQuery } from "@/redux/api/auditApi";
+import { useAppSelector } from "@/redux/hooks";
 
 const DEFAULTS = { page: "1", action: "", entityType: "", from: "", to: "" };
 
 export function AuditLogTable() {
-  const { t, lang, banglaDigits } = useT();
+  const { t, lang } = useT();
+  const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
   const url = useUrlState(DEFAULTS);
   const [expanded, setExpanded] = useState<string | null>(null);

@@ -55,7 +55,7 @@ export type TMarksSaveInput = { classId: string; sectionId?: string; subjectId: 
 export type TProgressRow = { classId: string; sectionId?: string; subjectId: string; subject: string; teacherId?: string; students: number; entered: number; submitted: number; complete: boolean };
 export type TExamProgress = { examId: string; status: TExamStatus; rows: TProgressRow[]; complete: boolean };
 
-export type TResultSubject = { subjectId: string; name: string; kind: string; total: number; fullMarks: number; letter?: string; point?: number; passed: boolean };
+export type TExamResultSubject = { subjectId: string; name: string; kind: string; total: number; fullMarks: number; letter?: string; point?: number; passed: boolean };
 export type TResult = {
   _id: string;
   examId: string;
@@ -63,7 +63,7 @@ export type TResult = {
   classId: string;
   sectionId?: string;
   roll: number;
-  subjects: TResultSubject[];
+  subjects: TExamResultSubject[];
   totalMarks: number;
   fullMarks: number;
   percent: number;

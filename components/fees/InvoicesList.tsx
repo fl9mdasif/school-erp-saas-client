@@ -22,7 +22,8 @@ const STATUSES: TInvoice["status"][] = ["unpaid", "partial", "paid", "voided"];
 const TONE: Record<TInvoice["status"], TTone> = { unpaid: "warning", partial: "info", paid: "success", voided: "muted" };
 
 export function InvoicesList() {
-  const { t, lang, banglaDigits, term } = useT();
+  const { t, lang, term } = useT();
+  const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
   const router = useRouter();
   const url = useUrlState(DEFAULTS);

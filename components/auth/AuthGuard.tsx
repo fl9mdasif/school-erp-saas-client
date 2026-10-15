@@ -9,7 +9,7 @@ import { roleHome } from "@/lib/permissions";
 import { Button } from "@/components/ui/button";
 import { useT } from "@/lib/i18n/useT";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { setAuthStatus } from "@/redux/slices/authSlice";
+import { runAuthBootstrap } from "./AuthBootstrap";
 
 type Props = {
   /** Roles allowed on this route group. */
@@ -23,8 +23,6 @@ type Props = {
  * when the route is not for it. This only decides what to show; the API is the real gate.
  */
 export function AuthGuard({ allow, children }: Props) {
-  const { t } = useT();
-  const dispatch = useAppDispatch();
   const { t } = useT();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -54,17 +52,7 @@ export function AuthGuard({ allow, children }: Props) {
       <div role="alert" className="mx-auto mt-24 max-w-md space-y-3 rounded-xl border border-border bg-card p-6 text-center">
         <h1 className="text-lg font-semibold text-navy">{t("auth.offline.title")}</h1>
         <p className="text-sm text-muted-foreground">{t("auth.offline.body")}</p>
-        <Button onClick={() => dispatch(setAuthStatus("idle"))}>{t("auth.offline.retry")}</Button>
-      </div>
-    );
-  }
-
-  if (status === "offline") {
-    return (
-      <div role="alert" className="mx-auto mt-24 max-w-md space-y-3 rounded-xl border border-border bg-card p-6 text-center">
-        <h1 className="text-lg font-semibold text-navy">{t("auth.offline.title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("auth.offline.body")}</p>
-        <Button onClick={() => dispatch(setAuthStatus("idle"))}>{t("auth.offline.retry")}</Button>
+        <Button onClick={() => runAuthBootstrap(dispatch)}>{t("auth.offline.retry")}</Button>
       </div>
     );
   }

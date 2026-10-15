@@ -78,7 +78,10 @@ instance.interceptors.response.use(
   async function (error: AxiosError<{ code?: string; message?: string; details?: unknown }>) {
     const config = error.config as RetryableConfig | undefined;
     const status = error.response?.status ?? 0;
-    const isAuthCall = config?.url?.includes("/auth/") ?? false;
+    // Only the endpoints that must never trigger a silent refresh on 401. /auth/me and
+    // /auth/change-password are normal Bearer-protected calls and must retry like any other.
+    const NO_REFRESH = ["/auth/login", "/auth/refresh", "/auth/logout", "/auth/platform/login", "/auth/forgot-password", "/auth/reset-password", "/auth/register-institution"];
+    const isAuthCall = NO_REFRESH.some((p) => config?.url?.includes(p)) ?? false;
 
     // Silent refresh once on 401, then retry the original request
     if (status === 401 && config && !config._retried && !isAuthCall) {

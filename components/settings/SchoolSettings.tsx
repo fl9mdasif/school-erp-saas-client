@@ -138,7 +138,7 @@ function PreferencesTab({ profile }: { profile: NonNullable<ReturnType<typeof us
   });
   const weekendDays = watch("weekendDays");
 
-  const toggleDay = (d: number) => setValue("weekendDays", weekendDays.includes(d) ? weekendDays.filter((x) => x !== d) : [...weekendDays, d]);
+  const toggleDay = (d: number) => setValue("weekendDays", weekendDays.includes(d) ? weekendDays.filter((x: number) => x !== d) : [...weekendDays, d]);
 
   const onSubmit = handleSubmit(async (v) => {
     try {
@@ -230,7 +230,8 @@ function TerminologyTab() {
 }
 
 function PlanTab() {
-  const { t, lang, banglaDigits } = useT();
+  const { t, lang } = useT();
+  const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
   const { data: usage, isLoading, error, refetch } = useGetSchoolUsageQuery();
 

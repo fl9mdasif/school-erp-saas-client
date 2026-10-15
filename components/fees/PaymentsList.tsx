@@ -11,13 +11,15 @@ import { formatLocalDate, formatMoney, isoToLocalDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/useT";
 import { useUrlState } from "@/lib/useUrlState";
 import { useGetPaymentsQuery } from "@/redux/api/paymentApi";
+import { useAppSelector } from "@/redux/hooks";
 import type { TPayment, TPaymentMethod } from "@/types";
 
 const DEFAULTS = { page: "1", method: "", from: "", to: "" };
 const METHODS: TPaymentMethod[] = ["cash", "bank", "cheque", "bkash_manual", "nagad_manual", "rocket_manual"];
 
 export function PaymentsList() {
-  const { t, lang, banglaDigits } = useT();
+  const { t, lang } = useT();
+  const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
   const router = useRouter();
   const url = useUrlState(DEFAULTS);

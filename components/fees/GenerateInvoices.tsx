@@ -23,7 +23,8 @@ type TForm = { classId: string; sectionId: string; periodLabel: string; cycle: T
 const CYCLES: TFeeCycle[] = ["monthly", "term", "yearly", "one_time"];
 
 export function GenerateInvoices() {
-  const { t, lang, banglaDigits, term } = useT();
+  const { t, lang, term } = useT();
+  const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
   const sessions = useGetSessionsQuery();
   const picked = useAppSelector((s) => s.ui.selectedSessionId);
