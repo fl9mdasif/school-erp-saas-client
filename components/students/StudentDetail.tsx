@@ -3,6 +3,7 @@
 import { ArrowLeft, Pencil } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { RoleGate } from "@/components/auth/RoleGate";
 import { ErrorState } from "@/components/common/ErrorState";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -43,7 +44,7 @@ export function StudentDetail({ id }: { id: string }) {
         title={lang === "bn" && s.nameBn ? s.nameBn : s.name}
         description={`${t("stu.detail.id")}: ${s.studentId}`}
         action={
-          <>
+          <RoleGate permission="students.manage">
             <Button variant="outline" asChild>
               <Link href={`/dashboard/students/${s._id}/edit`}>
                 <Pencil aria-hidden="true" />
@@ -51,7 +52,7 @@ export function StudentDetail({ id }: { id: string }) {
               </Link>
             </Button>
             <StudentActions student={s} />
-          </>
+          </RoleGate>
         }
       />
 

@@ -4,6 +4,7 @@ import { Download, Plus, Upload } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
+import { RoleGate } from "@/components/auth/RoleGate";
 import { DataTable, type TColumn } from "@/components/common/DataTable";
 import { PageHeader } from "@/components/common/PageHeader";
 import { SearchInput } from "@/components/common/SearchInput";
@@ -110,21 +111,23 @@ export function StudentsList() {
               <Download aria-hidden="true" />
               {t("stu.export")}
             </Button>
-            <Button variant="outline" asChild>
-              <Link href="/dashboard/students/promote">{t("promo.open")}</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/dashboard/students/import">
-                <Upload aria-hidden="true" />
-                {t("stu.import")}
-              </Link>
-            </Button>
-            <Button asChild>
-              <Link href="/dashboard/students/new">
-                <Plus aria-hidden="true" />
-                {t("stu.add", { student: term("student") })}
-              </Link>
-            </Button>
+            <RoleGate permission="students.manage">
+              <Button variant="outline" asChild>
+                <Link href="/dashboard/students/promote">{t("promo.open")}</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href="/dashboard/students/import">
+                  <Upload aria-hidden="true" />
+                  {t("stu.import")}
+                </Link>
+              </Button>
+              <Button asChild>
+                <Link href="/dashboard/students/new">
+                  <Plus aria-hidden="true" />
+                  {t("stu.add", { student: term("student") })}
+                </Link>
+              </Button>
+            </RoleGate>
           </>
         }
       />
