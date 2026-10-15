@@ -24,10 +24,15 @@ export type TPublicExam = { id: string; name: string; classes: { id: string; nam
 
 async function publicGet<T>(slug: string, path: string, params?: Record<string, string>): Promise<T | null> {
   const qs = params ? `?${new URLSearchParams(params).toString()}` : "";
-  const res = await fetch(`${API_BASE}/api/v1/public/schools/${slug}${path}${qs}`, { next: { revalidate: 60 } });
-  if (!res.ok) return null;
-  const json = await res.json();
-  return json.data as T;
+  try {
+    const res = await fetch(`${API_BASE}/api/v1/public/schools/${slug}${path}${qs}`, { next: { revalidate: 60 } });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.data as T;
+  } catch {
+    // API unreachable: treat the same as "not found" rather than crashing the page.
+    return null;
+  }
 }
 
 export const getPublicSite = (slug: string) => publicGet<TPublicSite>(slug, "");
