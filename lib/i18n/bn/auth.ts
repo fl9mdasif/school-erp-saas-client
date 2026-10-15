@@ -88,4 +88,5 @@ export const auth: Record<keyof typeof en, string> = {
   "auth.offline.title": "সার্ভারের সাথে যোগাযোগ হচ্ছে না",
   "auth.offline.body": "সংযোগ বিচ্ছিন্ন হয়েছে বা সার্ভার আবার চালু হচ্ছে। আপনি এখনো সাইন ইন আছেন। একটু পরে আবার চেষ্টা করুন।",
   "auth.offline.retry": "আবার চেষ্টা করুন",
+  "signup.slug.checkFailed": "এখন ঠিকানাটি যাচাই করা যায়নি। আপনি এগিয়ে যেতে পারেন; শেষে আবার যাচাই হবে।",
 };

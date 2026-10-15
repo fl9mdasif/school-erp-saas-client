@@ -28,7 +28,7 @@ const TYPES = [
   { value: "coaching", icon: Building2 },
 ] as const;
 
-type SlugState = "idle" | "checking" | "available" | "taken" | "reserved" | "invalid";
+type SlugState = "idle" | "checking" | "available" | "taken" | "reserved" | "invalid" | "error";
 
 export function SignupWizard() {
   const { t, tv } = useT();
@@ -72,7 +72,7 @@ export function SignupWizard() {
       if (res.data?.available) setSlugState("available");
       else if (res.data?.reason === "SLUG_TAKEN") setSlugState("taken");
       else if (res.data?.reason === "SLUG_RESERVED") setSlugState("reserved");
-      else setSlugState(res.isError ? "idle" : "invalid");
+      else setSlugState(res.isError ? "error" : "invalid");
     }, 400);
     return () => clearTimeout(timer);
   }, [normalized, checkSlug]);
@@ -80,7 +80,7 @@ export function SignupWizard() {
   const goNext = async () => {
     const ok = await trigger([...SIGNUP_STEP_FIELDS[step]]);
     if (!ok) return;
-    if (step === 1 && slugState !== "available") return;
+    if (step === 1 && slugState !== "available" && slugState !== "error") return;
     setStep((s) => s + 1);
   };
 
@@ -220,6 +220,8 @@ export function SignupWizard() {
               <span className="inline-flex items-center gap-2 text-success-deep">
                 <Check className="size-4" aria-hidden="true" /> {t("signup.slug.available", { slug: normalized })}
               </span>
+            ) : slugState === "error" ? (
+              <span className="inline-flex items-center gap-2 text-warning">{t("signup.slug.checkFailed")}</span>
             ) : slugState === "taken" || slugState === "reserved" || slugState === "invalid" ? (
               <span className="inline-flex items-center gap-2 text-destructive">
                 <X className="size-4" aria-hidden="true" />
@@ -295,7 +297,7 @@ export function SignupWizard() {
             <span />
           )}
           {step < 2 ? (
-            <Button type="button" onClick={goNext} disabled={step === 1 && slugState !== "available"}>
+            <Button type="button" onClick={goNext} disabled={step === 1 && slugState !== "available" && slugState !== "error"}>
               {t("common.next")}
             </Button>
           ) : (
