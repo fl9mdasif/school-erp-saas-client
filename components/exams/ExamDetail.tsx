@@ -4,6 +4,7 @@ import { AlertTriangle, ArrowLeft, Check, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { RoleGate } from "@/components/auth/RoleGate";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 import { ErrorState } from "@/components/common/ErrorState";
 import { PageHeader } from "@/components/common/PageHeader";
@@ -26,6 +27,7 @@ import {
   useSubmitMarksMutation,
   useUnlockMarksMutation,
 } from "@/redux/api/examApi";
+import { useAppSelector } from "@/redux/hooks";
 import type { TExam, TExamStatus, TMarkValue } from "@/types";
 import { ResultsTab } from "./ResultsTab";
 
@@ -60,16 +62,18 @@ export function ExamDetail({ id }: { id: string }) {
                 {t("common.back")}
               </Link>
             </Button>
-            {exam.status === "draft" || exam.status === "marks_closed" ? (
-              <Button disabled={settingStatus.isLoading} onClick={() => changeStatus("marks_open")}>
-                {t("exam.openMarks")}
-              </Button>
-            ) : null}
-            {exam.status === "marks_open" ? (
-              <Button variant="outline" disabled={settingStatus.isLoading} onClick={() => changeStatus("marks_closed")}>
-                {t("exam.closeMarks")}
-              </Button>
-            ) : null}
+            <RoleGate permission="exams.manage">
+              {exam.status === "draft" || exam.status === "marks_closed" ? (
+                <Button disabled={settingStatus.isLoading} onClick={() => changeStatus("marks_open")}>
+                  {t("exam.openMarks")}
+                </Button>
+              ) : null}
+              {exam.status === "marks_open" ? (
+                <Button variant="outline" disabled={settingStatus.isLoading} onClick={() => changeStatus("marks_closed")}>
+                  {t("exam.closeMarks")}
+                </Button>
+              ) : null}
+            </RoleGate>
           </>
         }
       />
@@ -84,7 +88,9 @@ export function ExamDetail({ id }: { id: string }) {
           <TabsTrigger value="marks">{t("exam.tab.marks")}</TabsTrigger>
           <TabsTrigger value="progress">{t("exam.tab.progress")}</TabsTrigger>
           <TabsTrigger value="results">{t("exam.tab.results")}</TabsTrigger>
-          <TabsTrigger value="publish">{t("exam.tab.publish")}</TabsTrigger>
+          <RoleGate permission="exams.manage">
+            <TabsTrigger value="publish">{t("exam.tab.publish")}</TabsTrigger>
+          </RoleGate>
         </TabsList>
         <TabsContent value="setup">
           <SetupTab exam={exam} />
@@ -98,9 +104,11 @@ export function ExamDetail({ id }: { id: string }) {
         <TabsContent value="results">
           <ResultsTab exam={exam} />
         </TabsContent>
-        <TabsContent value="publish">
-          <PublishTab exam={exam} />
-        </TabsContent>
+        <RoleGate permission="exams.manage">
+          <TabsContent value="publish">
+            <PublishTab exam={exam} />
+          </TabsContent>
+        </RoleGate>
       </Tabs>
     </>
   );
@@ -150,6 +158,8 @@ function SetupTab({ exam }: { exam: TExam }) {
 
 function MarksTab({ exam }: { exam: TExam }) {
   const { t, term } = useT();
+  const userId = useAppSelector((s) => s.auth.user?.id);
+  const role = useAppSelector((s) => s.auth.user?.role);
   const classes = useGetClassesQuery();
   const examClasses = (classes.data?.rows ?? []).filter((c) => exam.classIds.includes(c._id));
   const [classId, setClassId] = useState(examClasses[0]?._id ?? "");
@@ -158,7 +168,9 @@ function MarksTab({ exam }: { exam: TExam }) {
   const mapping = useGetClassSubjectsQuery({ sessionId: exam.sessionId, classId }, { skip: !classId });
   const subjectNames = useGetSubjectsQuery();
   const subjectName = new Map((subjectNames.data?.rows ?? []).map((s) => [s._id, s.name]));
-  const subjects = (mapping.data?.rows ?? []).filter((m) => !m.sectionId || m.sectionId === sectionId);
+  const subjects = (mapping.data?.rows ?? [])
+    .filter((m) => !m.sectionId || m.sectionId === sectionId)
+    .filter((m) => role !== "teacher" || m.teacherId === userId);
   const [subjectId, setSubjectId] = useState("");
 
   useEffect(() => setSubjectId(""), [classId, sectionId]);

@@ -4,6 +4,7 @@ import { Download, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { RoleGate } from "@/components/auth/RoleGate";
 import { ErrorState } from "@/components/common/ErrorState";
 import { FormField } from "@/components/common/FormField";
 import { StatCard } from "@/components/common/StatCard";
@@ -53,10 +54,12 @@ export function ResultsTab({ exam }: { exam: TExam }) {
   return (
     <>
       <div className="mb-4 flex flex-wrap items-end gap-3">
-        <Button onClick={onCalculate} disabled={calculating.isLoading}>
-          {calculating.isLoading ? <Loader2 className="animate-spin" aria-hidden="true" /> : null}
-          {t("exam.results.calculate")}
-        </Button>
+        <RoleGate permission="exams.manage">
+          <Button onClick={onCalculate} disabled={calculating.isLoading}>
+            {calculating.isLoading ? <Loader2 className="animate-spin" aria-hidden="true" /> : null}
+            {t("exam.results.calculate")}
+          </Button>
+        </RoleGate>
         <Select aria-label={term("class")} value={classId} onChange={(e) => { setClassId(e.target.value); setSectionId(""); }}>
           <option value="">{t("fee.gen.allClasses")}</option>
           {examClasses.map((c) => (
@@ -117,7 +120,9 @@ export function ResultsTab({ exam }: { exam: TExam }) {
                     <td className="flex gap-2 px-2 py-1">
                       <Button variant="ghost" size="sm" onClick={() => setSheetFor(r)}>{t("exam.results.marksheet")}</Button>
                       {exam.status === "published" ? (
-                        <Button variant="ghost" size="sm" onClick={() => setCorrecting(r)}>{t("exam.correct.action")}</Button>
+                        <RoleGate permission="exams.manage">
+                          <Button variant="ghost" size="sm" onClick={() => setCorrecting(r)}>{t("exam.correct.action")}</Button>
+                        </RoleGate>
                       ) : null}
                     </td>
                   </tr>

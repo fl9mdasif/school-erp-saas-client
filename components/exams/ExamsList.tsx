@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { RoleGate } from "@/components/auth/RoleGate";
 import { DataTable, type TColumn } from "@/components/common/DataTable";
 import { DatePicker } from "@/components/common/DatePicker";
 import { FormField } from "@/components/common/FormField";
@@ -45,10 +46,12 @@ export function ExamsList() {
         title={t("exam.list.title")}
         description={t("exam.list.desc")}
         action={
-          <Button onClick={() => setAdding(true)}>
-            <Plus aria-hidden="true" />
-            {t("exam.list.add")}
-          </Button>
+          <RoleGate permission="exams.manage">
+            <Button onClick={() => setAdding(true)}>
+              <Plus aria-hidden="true" />
+              {t("exam.list.add")}
+            </Button>
+          </RoleGate>
         }
       />
       <DataTable
