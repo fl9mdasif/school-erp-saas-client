@@ -15,8 +15,8 @@ It talks to the Express API in `../server` through a same-origin `/api/v1` proxy
 | --- | --- |
 | Platform owner (R1), Admin (R2), Teacher (R3), Accountant (R4) | Done |
 | Public school site (R5), Student portal (R6), Guardian portal (R7) | Done |
-| Hardening (Z): lazy charts, axe checks, README | Done |
-| Demo profile helper (Z.6), Vercel deploy (Z.7) | Open (needs a server phase / owner action) |
+| Hardening (Z): lazy charts, axe checks, README, demo profiles | Done |
+| Vercel deploy (Z.7) | Open (owner action) |
 
 Admin flow is tested end to end by hand against the demo school below. Typecheck, lint, Vitest (42
 tests) and the production build are all green.
@@ -132,7 +132,6 @@ fetch server side, so beyond the 404 path they need a real API (`e2e/public-site
 
 - No per-school `sitemap.xml` (only `robots.txt`).
 - The marks grid is not virtualized (fine for typical class sizes).
-- Demo profile helper (Z.6) needs a server phase.
 - `npm audit` reports advisories in the dependency tree; review before production.
 
 ## Deploy
