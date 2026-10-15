@@ -82,7 +82,7 @@ export function StudentForm({ studentId }: { studentId?: string }) {
   const classId = useWatch({ control, name: "classId" });
   const photoUrl = useWatch({ control, name: "photoUrl" });
 
-  const active = summary.data?.students ?? 0;
+  const active = summary.data?.role === "admin" ? summary.data.students : 0;
   const atCap = !editing && !!cap && active >= cap;
   const nearCap = !editing && !!cap && !atCap && active >= cap * 0.9;
   const sectionOptions = (sections.data?.rows ?? []).filter((s) => s.classId === classId);

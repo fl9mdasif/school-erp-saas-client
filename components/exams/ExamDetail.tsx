@@ -191,7 +191,7 @@ function MarksTab({ exam }: { exam: TExam }) {
             <option key={s._id} value={s._id}>{s.name}</option>
           ))}
         </Select>
-        <Select aria-label={t("ac.cs.subject")} value={subjectId} onChange={(e) => setSubjectId(e.target.value)}>
+        <Select aria-label={t("ac.map.subject")} value={subjectId} onChange={(e) => setSubjectId(e.target.value)}>
           <option value="">{t("stu.form.pick")}</option>
           {subjects.map((m) => (
             <option key={m._id} value={m.subjectId}>{subjectName.get(m.subjectId) ?? m.subjectId}</option>
