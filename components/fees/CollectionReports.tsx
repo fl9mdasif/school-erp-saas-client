@@ -1,7 +1,7 @@
 "use client";
 
 import { Download } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
 import { DatePicker } from "@/components/common/DatePicker";
 import { EmptyState } from "@/components/common/EmptyState";
@@ -24,6 +24,12 @@ const monthAgo = () => {
   d.setDate(d.getDate() - 30);
   return todayLocal(d);
 };
+
+// Recharts is only needed on this page, so it is loaded on demand.
+const CollectionBarChart = dynamic(() => import("./CollectionBarChart"), {
+  ssr: false,
+  loading: () => <Skeleton className="h-72 w-full max-w-3xl" />,
+});
 
 const GROUPS: TCollectionGroupBy[] = ["day", "method", "class", "feeHead"];
 const DEFAULTS = { from: monthAgo(), to: todayLocal(), groupBy: "day" };
@@ -81,17 +87,7 @@ export function CollectionReports() {
       ) : (
         <>
           <p className="tabular mb-3 text-lg font-bold text-navy">{t("fee.coll.total")}: {formatMoney(data?.total ?? 0, fmt)}</p>
-          <div className="h-72 w-full max-w-3xl" aria-hidden="true">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={rows} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
-                <XAxis dataKey="display" tick={{ fontSize: 12, fill: "var(--muted-foreground)" }} tickLine={false} axisLine={false} />
-                <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: "var(--muted-foreground)" }} tickLine={false} axisLine={false} />
-                <Tooltip cursor={{ fill: "var(--muted)" }} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)" }} formatter={(v) => formatMoney(Number(v), fmt)} />
-                <Bar dataKey="collected" fill="var(--chart-1)" radius={[4, 4, 0, 0]} isAnimationActive={false} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          <CollectionBarChart rows={rows} fmt={fmt} />
           <table className="sr-only">
             <caption>{t("fee.coll.title")}</caption>
             <tbody>
