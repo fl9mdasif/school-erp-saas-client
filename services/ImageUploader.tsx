@@ -14,6 +14,8 @@ interface ImageUploaderProps {
   /** Cloudinary folder under the school's own folder. Teachers may only use "notices". */
   folder?: TUploadFolder;
   className?: string;
+  /** "square" is a small fixed thumbnail for logos and portraits; "wide" is a capped banner preview. */
+  shape?: "wide" | "square";
 }
 
 const MAX_IMAGE_BYTES = 2 * 1024 * 1024; // same limit the server enforces on signed uploads
@@ -23,6 +25,7 @@ export const ImageUploader = ({
   initialImageUrl,
   folder = "photos",
   className = "",
+  shape = "wide",
 }: ImageUploaderProps) => {
   const { t } = useT();
   const [signUpload] = useSignUploadMutation();
@@ -32,6 +35,8 @@ export const ImageUploader = ({
   const [uploadedKb, setUploadedKb] = useState<number | null>(null);
 
   const busy = stage !== "idle";
+  const box = shape === "square" ? "size-36" : "h-44 w-full max-w-md";
+  const fit = shape === "square" ? "object-contain p-1" : "object-cover";
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -67,8 +72,8 @@ export const ImageUploader = ({
   return (
     <div className={`space-y-2 ${className}`}>
       {preview ? (
-        <div className="group relative h-44 w-full overflow-hidden rounded-xl border border-border bg-muted">
-          <Image src={preview} alt="" fill sizes="(max-width: 768px) 100vw, 400px" className="object-cover" />
+        <div className={`group relative ${box} overflow-hidden rounded-xl border border-border bg-muted`}>
+          <Image src={preview} alt="" fill sizes="(max-width: 768px) 100vw, 400px" className={fit} />
           {uploadedKb !== null ? (
             <div className="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-md bg-navy/80 px-2 py-1 text-xs text-white">
               <CheckCircle2 size={12} aria-hidden="true" />
@@ -86,7 +91,7 @@ export const ImageUploader = ({
         </div>
       ) : (
         <label
-          className={`flex h-44 w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-input bg-card transition-colors duration-200 hover:border-primary hover:bg-primary-tint/40 ${
+          className={`flex ${box} flex-col items-center justify-center rounded-xl border-2 border-dashed border-input bg-card transition-colors duration-200 hover:border-primary hover:bg-primary-tint/40 ${
             busy ? "cursor-wait" : "cursor-pointer"
           }`}
         >

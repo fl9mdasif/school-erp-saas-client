@@ -157,7 +157,7 @@ function ProfileDialog({ profile, onClose }: { profile: TStaffProfile | null; on
           <FormField label={t("web.staff.bio")}>
             {(c) => <Textarea {...c} {...register("bio")} />}
           </FormField>
-          <ImageUploader folder="staff" initialImageUrl={photoUrl || undefined} onUploadSuccess={(url) => setValue("photoUrl", url)} />
+          <ImageUploader shape="square" folder="staff" initialImageUrl={photoUrl || undefined} onUploadSuccess={(url) => setValue("photoUrl", url)} />
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" className="size-4" {...register("showOnPublicSite")} />
             {t("web.staff.showOnSite")}

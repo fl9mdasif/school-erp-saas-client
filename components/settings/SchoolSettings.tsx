@@ -104,7 +104,7 @@ function ProfileTab({ profile }: { profile: NonNullable<ReturnType<typeof useGet
     <form onSubmit={onSubmit} noValidate className="max-w-2xl space-y-4">
       <Card>
         <CardContent className="space-y-4 pt-5">
-          <ImageUploader folder="logo" initialImageUrl={logoUrl || undefined} onUploadSuccess={(url) => setValue("logoUrl", url)} />
+          <ImageUploader shape="square" folder="logo" initialImageUrl={logoUrl || undefined} onUploadSuccess={(url) => setValue("logoUrl", url)} />
           <div className="grid gap-3 sm:grid-cols-2">
             <FormField label={t("set.name")}>{(c) => <Input {...c} {...register("name")} />}</FormField>
             <FormField label={t("ac.sub.nameBn")}>{(c) => <Input {...c} {...register("nameBn")} />}</FormField>

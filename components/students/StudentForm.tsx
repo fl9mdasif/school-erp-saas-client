@@ -173,7 +173,7 @@ export function StudentForm({ studentId }: { studentId?: string }) {
             </FormField>
             <div className="sm:col-span-2">
               <p className="mb-1.5 text-sm font-medium">{t("stu.form.photo")}</p>
-              <ImageUploader folder="photos" initialImageUrl={photoUrl || undefined} onUploadSuccess={(url) => setValue("photoUrl", url)} />
+              <ImageUploader shape="square" folder="photos" initialImageUrl={photoUrl || undefined} onUploadSuccess={(url) => setValue("photoUrl", url)} />
             </div>
           </CardContent>
         </Card>
