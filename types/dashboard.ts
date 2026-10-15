@@ -10,5 +10,14 @@ export type TAdminSummary = {
   attendanceToday: TAttendanceToday;
 };
 
+export type TTeacherClassSummary = { sectionId: string; classId: string; name?: string; students: number; attendanceTakenToday: boolean };
+
+export type TTeacherSummary = {
+  role: "teacher";
+  date: string;
+  myClasses: TTeacherClassSummary[];
+  pendingAttendance: number;
+};
+
 /** The summary differs by role, so each portal narrows it with its own type. */
-export type TDashboardSummary = TAdminSummary;
+export type TDashboardSummary = TAdminSummary | TTeacherSummary;

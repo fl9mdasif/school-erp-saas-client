@@ -1,6 +1,7 @@
 "use client";
 
 import { AdminHome } from "@/components/dashboard/AdminHome";
+import { TeacherHome } from "@/components/dashboard/TeacherHome";
 import { PageHeader } from "@/components/common/PageHeader";
 import { useAppSelector } from "@/redux/hooks";
 
@@ -8,5 +9,6 @@ import { useAppSelector } from "@/redux/hooks";
 export default function DashboardHomePage() {
   const role = useAppSelector((s) => s.auth.user?.role);
   if (role === "admin") return <AdminHome />;
+  if (role === "teacher") return <TeacherHome />;
   return <PageHeader title="Dashboard" description="This role's home page is built in its own stage." />;
 }

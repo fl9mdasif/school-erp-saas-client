@@ -13,6 +13,7 @@ import { formatNumber } from "@/lib/format";
 import { useT } from "@/lib/i18n/useT";
 import { useGetDashboardSummaryQuery } from "@/redux/api/dashboardApi";
 import { useAppSelector } from "@/redux/hooks";
+import type { TAdminSummary } from "@/types";
 
 const QUICK = [
   { href: "/dashboard/students/new", label: "ad.quick.addStudent", icon: UserPlus },
@@ -32,7 +33,8 @@ export function AdminHome() {
   const { t, term, lang } = useT();
   const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
-  const { data, isLoading, error, refetch } = useGetDashboardSummaryQuery();
+  const { data: raw, isLoading, error, refetch } = useGetDashboardSummaryQuery();
+  const data = raw?.role === "admin" ? (raw as TAdminSummary) : undefined;
 
   if (error) return <ErrorState error={error} onRetry={refetch} />;
   const att = data?.attendanceToday;
