@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { EmptyState } from "@/components/common/EmptyState";
 import { FormField } from "@/components/common/FormField";
 import { PageHeader } from "@/components/common/PageHeader";
+import { StatCard } from "@/components/common/StatCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,10 +16,11 @@ import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { getApiErrorMessage } from "@/lib/errors";
-import { formatMoney } from "@/lib/format";
+import { formatMoney, todayLocal } from "@/lib/format";
 import { useT } from "@/lib/i18n/useT";
 import { useCreatePaymentMutation } from "@/redux/api/paymentApi";
 import { useGetInvoicesQuery } from "@/redux/api/feesApi";
+import { useGetCollectionReportQuery, useGetDuesQuery } from "@/redux/api/feeReportApi";
 import { useAppSelector } from "@/redux/hooks";
 import type { TPaymentMethod, TStudent } from "@/types";
 import { collectFeeSchema, type TCollectFeeForm } from "@/utils/schemas/payment";
@@ -29,9 +31,14 @@ const METHODS: TPaymentMethod[] = ["cash", "bank", "cheque", "bkash_manual", "na
 const DIGITAL = new Set<TPaymentMethod>(["bkash_manual", "nagad_manual", "rocket_manual"]);
 
 export function CollectFee() {
-  const { t } = useT();
+  const { t, lang } = useT();
+  const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
+  const fmt = { lang, banglaDigits } as const;
   const [student, setStudent] = useState<TStudent | null>(null);
   const [paidId, setPaidId] = useState<string | null>(null);
+  const today = todayLocal();
+  const collection = useGetCollectionReportQuery({ from: today, to: today, groupBy: "day" });
+  const dues = useGetDuesQuery({ limit: 1 });
 
   if (paidId) {
     return (
@@ -51,6 +58,11 @@ export function CollectFee() {
   return (
     <>
       <PageHeader title={t("fee.collect.title")} description={t("fee.collect.desc")} />
+
+      <div className="mb-4 grid max-w-md grid-cols-2 gap-3">
+        <StatCard label={t("fee.collect.todayCollection")} value={formatMoney(collection.data?.total ?? 0, fmt)} loading={collection.isLoading} />
+        <StatCard label={t("fee.collect.totalDue")} value={formatMoney(dues.data?.totalDue ?? 0, fmt)} loading={dues.isLoading} tone="warning" />
+      </div>
       <div className="mb-4 max-w-md">
         <FormField label={t("fee.adj.student")}>{() => <StudentPicker selected={student} onSelect={setStudent} />}</FormField>
       </div>

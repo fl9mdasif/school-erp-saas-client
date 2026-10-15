@@ -124,6 +124,8 @@ export const fees = {
   "fee.collect.overAmount": "Amount cannot be more than the selected total",
   "fee.collect.noDues": "No dues",
   "fee.collect.noDuesDesc": "This student has no unpaid or partially paid invoices.",
+  "fee.collect.todayCollection": "Collected today",
+  "fee.collect.totalDue": "Total due",
 
   "fee.rc.title": "Receipt",
   "fee.rc.print": "Print",

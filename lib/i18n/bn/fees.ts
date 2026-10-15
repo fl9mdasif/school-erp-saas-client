@@ -126,6 +126,8 @@ export const fees: Record<keyof typeof en, string> = {
   "fee.collect.overAmount": "বাছাই করা সর্বমোটের চেয়ে বেশি দেওয়া যাবে না",
   "fee.collect.noDues": "কোনো বাকি নেই",
   "fee.collect.noDuesDesc": "এই শিক্ষার্থীর কোনো অপরিশোধিত বা আংশিক পরিশোধিত চালান নেই।",
+  "fee.collect.todayCollection": "আজ সংগৃহীত",
+  "fee.collect.totalDue": "সর্বমোট বাকি",
 
   "fee.rc.title": "রসিদ",
   "fee.rc.print": "প্রিন্ট",
