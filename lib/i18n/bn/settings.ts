@@ -26,4 +26,16 @@ export const settingsNs: Record<keyof typeof en, string> = {
   "set.students": "শিক্ষার্থী",
   "set.staff": "কর্মী",
   "set.trialEnds": "ট্রায়াল শেষ",
+
+  "audit.title": "অডিট লগ",
+  "audit.desc": "প্রতিটি গুরুত্বপূর্ণ পরিবর্তন, কে করেছে ও কখন, সবসময়ের জন্য সংরক্ষিত।",
+  "audit.action": "কাজ",
+  "audit.entityType": "সত্তা",
+  "audit.actor": "ভূমিকা",
+  "audit.when": "কখন",
+  "audit.expand": "বিস্তারিত দেখান",
+  "audit.reason": "কারণ",
+  "audit.before": "আগে",
+  "audit.after": "পরে",
+  "audit.empty": "এখনো কোনো অডিট এন্ট্রি নেই",
 };

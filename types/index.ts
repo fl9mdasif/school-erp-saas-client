@@ -14,3 +14,4 @@ export * from "./feeReport";
 export * from "./exam";
 export * from "./website";
 export * from "./settings";
+export * from "./audit";

@@ -24,4 +24,16 @@ export const settingsNs = {
   "set.students": "Students",
   "set.staff": "Staff",
   "set.trialEnds": "Trial ends",
+
+  "audit.title": "Audit log",
+  "audit.desc": "Every sensitive change, who made it and when, kept forever.",
+  "audit.action": "Action",
+  "audit.entityType": "Entity",
+  "audit.actor": "Role",
+  "audit.when": "When",
+  "audit.expand": "Show details",
+  "audit.reason": "Reason",
+  "audit.before": "Before",
+  "audit.after": "After",
+  "audit.empty": "No audit entries yet",
 } as const;
