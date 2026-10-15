@@ -1,5 +1,10 @@
+import { Suspense } from "react";
 import { PortalAttendance } from "@/components/portal/PortalAttendance";
 
 export default function PortalAttendancePage() {
-  return <PortalAttendance />;
+  return (
+    <Suspense>
+      <PortalAttendance />
+    </Suspense>
+  );
 }

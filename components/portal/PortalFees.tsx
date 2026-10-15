@@ -14,15 +14,30 @@ import { formatLocalDate, formatMoney, isoToLocalDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/useT";
 import { useGetMyFeesQuery } from "@/redux/api/portalApi";
 import { useAppSelector } from "@/redux/hooks";
+import { ChildPicker } from "./ChildPicker";
 
 export function PortalFees() {
+  const { t } = useT();
+  return (
+    <>
+      <PageHeader title={t("pt.fees.title")} />
+      <ChildPicker>{(activeId) => <FeesForChild activeId={activeId} />}</ChildPicker>
+    </>
+  );
+}
+
+function FeesForChild({ activeId }: { activeId: string }) {
   const { t, lang } = useT();
   const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
-  const { data, isLoading, error, refetch } = useGetMyFeesQuery();
+  const { data: all, isLoading, error, refetch } = useGetMyFeesQuery();
 
   if (isLoading) return <Skeleton className="h-64 w-full max-w-2xl" />;
-  if (error || !data) return <ErrorState error={error} onRetry={refetch} />;
+  if (error || !all) return <ErrorState error={error} onRetry={refetch} />;
+
+  const invoices = all.invoices.filter((i) => (typeof i.studentId === "object" ? i.studentId._id : i.studentId) === activeId);
+  const receipts = all.receipts.filter((p) => (typeof p.studentId === "object" ? p.studentId._id : p.studentId) === activeId);
+  const data = { totalDue: invoices.reduce((s, i) => s + i.dueAmount, 0), invoices, receipts };
 
   const download = async (id: string) => {
     try {
@@ -34,7 +49,6 @@ export function PortalFees() {
 
   return (
     <>
-      <PageHeader title={t("pt.fees.title")} />
       <p className="tabular mb-4 text-lg font-bold text-navy">{t("fee.dues.totalDue")}: {formatMoney(data.totalDue, fmt)}</p>
 
       <Card className="mb-4 max-w-2xl">

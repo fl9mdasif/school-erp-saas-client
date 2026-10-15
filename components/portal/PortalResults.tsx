@@ -12,13 +12,25 @@ import { downloadFile } from "@/lib/download";
 import { getApiErrorMessage } from "@/lib/errors";
 import { useT } from "@/lib/i18n/useT";
 import { useGetMyResultsQuery } from "@/redux/api/portalApi";
+import { ChildPicker } from "./ChildPicker";
 
 export function PortalResults() {
   const { t } = useT();
-  const { data, isLoading, error, refetch } = useGetMyResultsQuery();
+  return (
+    <>
+      <PageHeader title={t("pt.results.title")} />
+      <ChildPicker>{(activeId) => <ResultsForChild activeId={activeId} />}</ChildPicker>
+    </>
+  );
+}
+
+function ResultsForChild({ activeId }: { activeId: string }) {
+  const { t } = useT();
+  const { data: all, isLoading, error, refetch } = useGetMyResultsQuery();
 
   if (isLoading) return <Skeleton className="h-64 w-full max-w-2xl" />;
-  if (error || !data) return <ErrorState error={error} onRetry={refetch} />;
+  if (error || !all) return <ErrorState error={error} onRetry={refetch} />;
+  const data = all.filter((r) => !r.studentId || r.studentId === activeId);
 
   const download = async (r: NonNullable<typeof data>[number]) => {
     if (!r.studentId) return;
@@ -31,7 +43,6 @@ export function PortalResults() {
 
   return (
     <>
-      <PageHeader title={t("pt.results.title")} />
       {data.length === 0 ? (
         <EmptyState title={t("exam.results.empty")} />
       ) : (

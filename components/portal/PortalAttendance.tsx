@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useGetStudentAttendanceQuery } from "@/redux/api/studentApi";
 import { ChildPicker } from "./ChildPicker";
 import { ErrorState } from "@/components/common/ErrorState";
@@ -24,18 +23,12 @@ export function PortalAttendance() {
   const { t, lang } = useT();
   const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
-  const [activeId, setActiveId] = useState("");
   const { from, to } = monthRange();
 
   return (
     <>
       <PageHeader title={t("pt.att.title")} />
-      <ChildPicker activeId={activeId} onChange={setActiveId}>
-        {(students) => {
-          const id = activeId || students[0]._id;
-          return <MonthCalendar id={id} from={from} to={to} fmt={fmt} />;
-        }}
-      </ChildPicker>
+      <ChildPicker>{(activeId) => <MonthCalendar id={activeId} from={from} to={to} fmt={fmt} />}</ChildPicker>
     </>
   );
 }
