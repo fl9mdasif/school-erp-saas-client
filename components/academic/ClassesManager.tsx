@@ -5,6 +5,7 @@ import { ArrowDown, ArrowUp, Loader2, Pencil, Plus, Trash2, Wand2 } from "lucide
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { RoleGate } from "@/components/auth/RoleGate";
 import { QuickSetupDialog } from "./QuickSetupDialog";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 import { EmptyState } from "@/components/common/EmptyState";
@@ -89,7 +90,7 @@ export function ClassesManager() {
         title={t("ac.cls.title", { class: term("class"), section: term("section") })}
         description={t("ac.cls.desc")}
         action={
-          <>
+          <RoleGate permission="academic.manage">
             <Button variant="outline" onClick={() => setEditing({ kind: "quick" })}>
               <Wand2 aria-hidden="true" />
               {t("ac.quick.open")}
@@ -98,7 +99,7 @@ export function ClassesManager() {
               <Plus aria-hidden="true" />
               {t("ac.cls.add", { class: term("class") })}
             </Button>
-          </>
+          </RoleGate>
         }
       />
 
@@ -123,12 +124,14 @@ export function ClassesManager() {
                       {c.group ? <Badge className="ml-2">{t(`ac.cls.group.${c.group}`)}</Badge> : null}
                       {!c.isActive ? <Badge className="ml-2">{t("ac.cls.inactive")}</Badge> : null}
                     </button>
-                    <Button variant="ghost" size="icon" disabled={i === 0 || reordering} onClick={() => move(i, -1)} aria-label={t("ac.cls.moveUp")}>
-                      <ArrowUp aria-hidden="true" />
-                    </Button>
-                    <Button variant="ghost" size="icon" disabled={i === list.length - 1 || reordering} onClick={() => move(i, 1)} aria-label={t("ac.cls.moveDown")}>
-                      <ArrowDown aria-hidden="true" />
-                    </Button>
+                    <RoleGate permission="academic.manage">
+                      <Button variant="ghost" size="icon" disabled={i === 0 || reordering} onClick={() => move(i, -1)} aria-label={t("ac.cls.moveUp")}>
+                        <ArrowUp aria-hidden="true" />
+                      </Button>
+                      <Button variant="ghost" size="icon" disabled={i === list.length - 1 || reordering} onClick={() => move(i, 1)} aria-label={t("ac.cls.moveDown")}>
+                        <ArrowDown aria-hidden="true" />
+                      </Button>
+                    </RoleGate>
                   </li>
                 ))}
               </ul>
@@ -142,14 +145,16 @@ export function ClassesManager() {
                   <CardTitle>{selected.name}</CardTitle>
                   <p className="tabular text-xs text-muted-foreground">{t("ac.cls.sectionCount", { count: formatNumber(mine.length, fmt), section: term("section") })}</p>
                 </div>
-                <div className="flex shrink-0 gap-1">
-                  <Button variant="outline" size="icon" onClick={() => setEditing({ kind: "class", item: selected })} aria-label={t("common.edit")}>
-                    <Pencil aria-hidden="true" />
-                  </Button>
-                  <Button variant="outline" size="icon" onClick={() => setRemoving({ kind: "class", item: selected })} aria-label={t("common.delete")}>
-                    <Trash2 aria-hidden="true" />
-                  </Button>
-                </div>
+                <RoleGate permission="academic.manage">
+                  <div className="flex shrink-0 gap-1">
+                    <Button variant="outline" size="icon" onClick={() => setEditing({ kind: "class", item: selected })} aria-label={t("common.edit")}>
+                      <Pencil aria-hidden="true" />
+                    </Button>
+                    <Button variant="outline" size="icon" onClick={() => setRemoving({ kind: "class", item: selected })} aria-label={t("common.delete")}>
+                      <Trash2 aria-hidden="true" />
+                    </Button>
+                  </div>
+                </RoleGate>
               </CardHeader>
               <CardContent className="space-y-3">
                 {mine.length === 0 ? (
@@ -162,22 +167,26 @@ export function ClassesManager() {
                           <span className="font-medium">{s.name}</span>
                           {s.capacity ? <span className="tabular ml-2 text-xs text-muted-foreground">{t("ac.cls.capacity")}: {formatNumber(s.capacity, fmt)}</span> : null}
                         </span>
-                        <span className="flex shrink-0 gap-1">
-                          <Button variant="ghost" size="icon" onClick={() => setEditing({ kind: "section", item: s })} aria-label={t("common.edit")}>
-                            <Pencil aria-hidden="true" />
-                          </Button>
-                          <Button variant="ghost" size="icon" onClick={() => setRemoving({ kind: "section", item: s })} aria-label={t("common.delete")}>
-                            <Trash2 aria-hidden="true" />
-                          </Button>
-                        </span>
+                        <RoleGate permission="academic.manage">
+                          <span className="flex shrink-0 gap-1">
+                            <Button variant="ghost" size="icon" onClick={() => setEditing({ kind: "section", item: s })} aria-label={t("common.edit")}>
+                              <Pencil aria-hidden="true" />
+                            </Button>
+                            <Button variant="ghost" size="icon" onClick={() => setRemoving({ kind: "section", item: s })} aria-label={t("common.delete")}>
+                              <Trash2 aria-hidden="true" />
+                            </Button>
+                          </span>
+                        </RoleGate>
                       </li>
                     ))}
                   </ul>
                 )}
-                <Button variant="outline" onClick={() => setEditing({ kind: "section", item: null })}>
-                  <Plus aria-hidden="true" />
-                  {t("ac.cls.addSection", { section: term("section") })}
-                </Button>
+                <RoleGate permission="academic.manage">
+                  <Button variant="outline" onClick={() => setEditing({ kind: "section", item: null })}>
+                    <Plus aria-hidden="true" />
+                    {t("ac.cls.addSection", { section: term("section") })}
+                  </Button>
+                </RoleGate>
               </CardContent>
             </Card>
           ) : null}
