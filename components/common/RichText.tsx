@@ -24,6 +24,7 @@ export function RichText({ html, className }: { html: string; className?: string
         node.setAttribute("rel", "noopener noreferrer");
       }
     });
+    // eslint-disable-next-line -- DOMPurify needs a DOM, only available once mounted on the client
     setSafe(DOMPurify.sanitize(html, ALLOWED));
     return () => {
       DOMPurify.removeHook("afterSanitizeAttributes");

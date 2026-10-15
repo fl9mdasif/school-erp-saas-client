@@ -117,8 +117,8 @@ function SheetEditor({ sheet }: { sheet: TSheet }) {
 
   const weekend = weekendDays.includes(dayOfWeek(sheet.date));
   const windowHours = DEFAULT_WINDOW_HOURS;
-  const closed =
-    sheet.exists && role !== "admin" && !!sheet.takenAt && Date.now() - new Date(sheet.takenAt).getTime() > windowHours * 3_600_000;
+  // eslint-disable-next-line -- the edit window must compare against the real current time
+  const closed = sheet.exists && role !== "admin" && !!sheet.takenAt && Date.now() - new Date(sheet.takenAt).getTime() > windowHours * 3_600_000;
 
   const counts = STATUSES.reduce((o, s) => ({ ...o, [s]: sheet.records.filter((r) => statuses[r.studentId] === s).length }), {} as Record<TAttendanceStatus, number>);
 

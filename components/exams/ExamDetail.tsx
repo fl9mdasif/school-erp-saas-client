@@ -2,7 +2,7 @@
 
 import { AlertTriangle, ArrowLeft, Check, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { RoleGate } from "@/components/auth/RoleGate";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
@@ -172,8 +172,12 @@ function MarksTab({ exam }: { exam: TExam }) {
     .filter((m) => !m.sectionId || m.sectionId === sectionId)
     .filter((m) => role !== "teacher" || m.teacherId === userId);
   const [subjectId, setSubjectId] = useState("");
-
-  useEffect(() => setSubjectId(""), [classId, sectionId]);
+  const scopeKey = `${classId}|${sectionId}`;
+  const [lastScopeKey, setLastScopeKey] = useState(scopeKey);
+  if (scopeKey !== lastScopeKey) {
+    setLastScopeKey(scopeKey);
+    setSubjectId("");
+  }
 
   const sheet = useGetMarksSheetQuery({ examId: exam._id, classId, sectionId: sectionId || undefined, subjectId }, { skip: !classId || !subjectId });
 
@@ -215,6 +219,7 @@ function MarksTab({ exam }: { exam: TExam }) {
 function MarksGrid({ examId, examStatus, classId, sectionId, subjectId, sheet }: { examId: string; examStatus: TExamStatus; classId: string; sectionId: string; subjectId: string; sheet: TMarksSheet }) {
   const { t } = useT();
   const [rows, setRows] = useState(sheet.rows);
+  const [lastSheetRows, setLastSheetRows] = useState(sheet.rows);
   const [saveState, setSaveState] = useState<Record<string, "saving" | "saved" | "error">>({});
   const [saveMarks] = useSaveMarksMutation();
   const [submitMarks, submitting] = useSubmitMarksMutation();
@@ -222,7 +227,10 @@ function MarksGrid({ examId, examStatus, classId, sectionId, subjectId, sheet }:
   const [confirmSubmit, setConfirmSubmit] = useState(false);
   const inputRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
-  useEffect(() => setRows(sheet.rows), [sheet]);
+  if (sheet.rows !== lastSheetRows) {
+    setLastSheetRows(sheet.rows);
+    setRows(sheet.rows);
+  }
 
   const components = sheet.subject.components;
   const locked = examStatus !== "marks_open";
