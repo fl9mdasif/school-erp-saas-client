@@ -115,6 +115,8 @@ export type TStudentResult = {
   _id: string;
   examId: string;
   examName?: string;
+  /** Present on the portal's merged /me/results list (a guardian may have more than one child). */
+  studentId?: string;
   subjects: TResultSubject[];
   totalMarks: number;
   fullMarks: number;
