@@ -37,6 +37,7 @@ export const fees: Record<keyof typeof en, string> = {
   "val.percentRange": "শতাংশ ০ থেকে ১০০ এর মধ্যে হতে হবে",
 
   "fee.pick.noMatch": "কোনো শিক্ষার্থী মিলেনি",
+  "fee.pick.search": "নাম, আইডি, রোল বা অভিভাবকের ফোন নম্বর দিয়ে খুঁজুন",
   "fee.adj.title": "মওকুফ ও বৃত্তি",
   "fee.adj.desc": "কোনো শিক্ষার্থীর ফি-তে ছাড়, শতাংশ বা নির্দিষ্ট অঙ্কে, কারণ উল্লেখ করে।",
   "fee.adj.add": "মওকুফ যোগ করুন",

@@ -35,6 +35,7 @@ export const fees = {
   "val.percentRange": "Percent must be between 0 and 100",
 
   "fee.pick.noMatch": "No student matches",
+  "fee.pick.search": "Search by name, student ID, roll or guardian phone",
   "fee.adj.title": "Waivers and scholarships",
   "fee.adj.desc": "Discounts that apply to a student's fees, either a percent or a fixed amount, for a reason you record here.",
   "fee.adj.add": "Add adjustment",

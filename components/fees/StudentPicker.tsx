@@ -35,7 +35,7 @@ export function StudentPicker({ selected, onSelect }: Props) {
 
   return (
     <div className="relative">
-      <SearchInput value={q} onChange={setQ} placeholder={t("stu.search")} />
+      <SearchInput value={q} onChange={setQ} placeholder={t("fee.pick.search")} />
       {q.trim().length >= 2 ? (
         <div className="absolute z-10 mt-1 max-h-64 w-full overflow-y-auto rounded-lg border border-border bg-popover shadow-lg">
           {search.isLoading ? (
