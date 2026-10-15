@@ -64,4 +64,11 @@ export const marketing: Record<keyof typeof en, string> = {
   "mk.mock.gpa": "জিপিএ",
   "mk.mock.position": "মেধাক্রম",
   "mk.mock.passed": "উত্তীর্ণ",
+  "demo.badge": "লাইভ ডেমো",
+  "demo.title": "ডেমো স্কুল ঘুরে দেখুন",
+  "demo.body": "শিক্ষার্থী, ফি ও ফলাফলসহ তৈরি একটি স্কুল দেখুন। সাইন-আপ লাগবে না।",
+  "demo.cta": "ডেমো খুলুন",
+  "demo.role.admin": "অ্যাডমিন",
+  "demo.role.teacher": "শিক্ষক",
+  "demo.role.accountant": "হিসাবরক্ষক",
 };

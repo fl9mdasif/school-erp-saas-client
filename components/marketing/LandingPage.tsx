@@ -1,10 +1,11 @@
 "use client";
 
-import { BookOpen, CalendarCheck, Globe, GraduationCap, Smartphone, Trophy, Wallet } from "lucide-react";
+import { BookOpenCheck, CalendarCheck, Globe, GraduationCap, Landmark, School, Smartphone, Trophy, Wallet, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useT } from "@/lib/i18n/useT";
+import { DemoSchoolCard } from "./DemoSchoolCard";
 import { ContainerScroll } from "./ContainerScroll";
 import { DashboardMock, ResultMock } from "./Mocks";
 import { PhoneScroll } from "./PhoneScroll";
@@ -20,6 +21,7 @@ const FEATURES = [
 ] as const;
 
 const AUDIENCE = ["school", "madrasa", "coaching"] as const;
+const AUDIENCE_ICON: Record<(typeof AUDIENCE)[number], LucideIcon> = { school: School, madrasa: Landmark, coaching: BookOpenCheck };
 
 export function LandingPage() {
   const { t } = useT();
@@ -51,13 +53,25 @@ export function LandingPage() {
         <DashboardMock />
       </ContainerScroll>
 
+      {/* try it now: a live demo school */}
+      <section className="mx-auto max-w-4xl px-4 pb-4">
+        <DemoSchoolCard />
+      </section>
+
       {/* who it is for */}
       <section className="mx-auto max-w-6xl px-4 py-12">
         <h2 className="mb-8 text-center text-2xl font-semibold md:text-3xl">{t("mk.audience.title")}</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {AUDIENCE.map((k) => (
-            <Card key={k} className="p-6">
-              <BookOpen className="mb-3 size-6 text-primary" aria-hidden="true" />
+            <Card key={k} className="group p-6 transition-all duration-200 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg">
+              {(() => {
+                const Icon = AUDIENCE_ICON[k];
+                return (
+                  <span className="mb-4 grid size-12 place-items-center rounded-xl bg-primary-tint text-primary-deep transition-colors group-hover:bg-primary group-hover:text-white">
+                    <Icon className="size-6" aria-hidden="true" />
+                  </span>
+                );
+              })()}
               <h3 className="text-lg font-semibold">{t(`mk.audience.${k}.title`)}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{t(`mk.audience.${k}.body`)}</p>
             </Card>
@@ -71,7 +85,7 @@ export function LandingPage() {
           <h2 className="mb-10 text-center text-2xl font-semibold md:text-3xl">{t("mk.features.title")}</h2>
           <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map(({ icon: Icon, key }) => (
-              <div key={key} className="flex gap-4">
+              <div key={key} className="flex gap-4 rounded-xl border border-transparent p-4 transition-colors hover:border-border hover:bg-background">
                 <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-primary-tint text-primary-deep">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>
@@ -104,7 +118,7 @@ export function LandingPage() {
       <PricingSection />
 
       {/* closing call to action */}
-      <section className="bg-navy py-16 text-center">
+      <section className="bg-gradient-to-br from-navy via-navy to-primary-deep py-20 text-center">
         <div className="mx-auto max-w-2xl px-4">
           <h2 className="text-2xl font-semibold text-white md:text-3xl">{t("mk.final.title")}</h2>
           <p className="mt-2 text-sidebar-foreground">{t("mk.final.body")}</p>

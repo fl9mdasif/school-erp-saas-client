@@ -62,4 +62,11 @@ export const marketing = {
   "mk.mock.gpa": "GPA",
   "mk.mock.position": "Position",
   "mk.mock.passed": "Passed",
+  "demo.badge": "Live demo",
+  "demo.title": "Try the demo school",
+  "demo.body": "Explore a ready-made school with students, fees and results. No sign-up needed.",
+  "demo.cta": "Open the demo",
+  "demo.role.admin": "Admin",
+  "demo.role.teacher": "Teacher",
+  "demo.role.accountant": "Accountant",
 } as const;

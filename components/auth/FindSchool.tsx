@@ -4,6 +4,7 @@ import { ChevronRight, Loader2, Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AuthCard } from "@/components/auth/AuthCard";
+import { DemoSchoolCard } from "@/components/marketing/DemoSchoolCard";
 import { ErrorState } from "@/components/common/ErrorState";
 import { Input } from "@/components/ui/input";
 import { useT } from "@/lib/i18n/useT";
@@ -36,6 +37,8 @@ export function FindSchool() {
         </>
       }
     >
+      <DemoSchoolCard className="mb-5" showAccounts={false} />
+
       <label htmlFor="school-search" className="sr-only">
         {t("login.find.search")}
       </label>
