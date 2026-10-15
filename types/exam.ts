@@ -43,8 +43,8 @@ export type TExamInput = {
   endDate?: string;
 };
 
-export type TMarkComponent = { key: string; label?: string; obtained: number | null; absent: boolean; fullMarks?: number; passMarks?: number };
-export type TMarksSheetRow = { studentId: string; studentCode: string; name: string; roll: number; status: "empty" | "draft" | "submitted" | "locked"; components: TMarkComponent[]; total?: number };
+export type TMarkValue = { key: string; label?: string; obtained: number | null; absent: boolean; fullMarks?: number; passMarks?: number };
+export type TMarksSheetRow = { studentId: string; studentCode: string; name: string; roll: number; status: "empty" | "draft" | "submitted" | "locked"; components: TMarkValue[]; total?: number };
 export type TMarksSheet = {
   exam: { id: string; name: string; status: TExamStatus };
   subject: { id: string; name: string; kind: string; fullMarks: number; components: { key: string; label: string; fullMarks: number; passMarks: number }[] };
