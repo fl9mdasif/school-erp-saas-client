@@ -17,3 +17,9 @@ export async function downloadFile(path: string, fileName: string, params?: Reco
   a.remove();
   URL.revokeObjectURL(href);
 }
+
+/** Fetches a file through the authenticated client and returns a blob: URL for an <iframe> or <img>. Caller revokes it. */
+export async function fetchFileUrl(path: string, params?: Record<string, unknown>): Promise<string> {
+  const res = (await instance.get(`${baseURL}${path}`, { params, responseType: "blob" })) as unknown as { data: Blob };
+  return URL.createObjectURL(res.data);
+}
