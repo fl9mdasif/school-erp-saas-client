@@ -13,3 +13,4 @@ export * from "./payment";
 export * from "./feeReport";
 export * from "./exam";
 export * from "./website";
+export * from "./settings";
