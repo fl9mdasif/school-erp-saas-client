@@ -72,4 +72,10 @@ export const marketing: Record<keyof typeof en, string> = {
   "demo.role.teacher": "শিক্ষক",
   "demo.role.accountant": "হিসাবরক্ষক",
   "mk.footer.platform": "প্ল্যাটফর্ম মালিকের সাইন ইন",
+  "mk.features.showAll": "সব ফিচার দেখুন",
+  "mk.all.eyebrow": "সবকিছু এক জায়গায়",
+  "mk.all.title": "আপনার প্রতিষ্ঠানের দরকারি সব ফিচার",
+  "mk.all.subtitle": "সেটআপ, শিক্ষার্থী, উপস্থিতি, ফি, পরীক্ষা, ওয়েবসাইট ও অভিভাবক পোর্টাল জুড়ে {count}টি ফিচার।",
+  "mk.all.tryDemo": "ডেমো দেখুন",
+  "mk.all.jump": "ফিচারের ক্ষেত্র",
 };

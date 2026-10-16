@@ -26,7 +26,7 @@ export function MarketingHeader() {
           <Brand onLight /> 
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
-          <Button asChild variant="ghost" size="sm"><Link href="/#features">{t("mk.nav.features")}</Link></Button>
+          <Button asChild variant="ghost" size="sm"><Link href="/features">{t("mk.nav.features")}</Link></Button>
           <Button asChild variant="ghost" size="sm"><Link href="/pricing">{t("mk.nav.pricing")}</Link></Button>
           <Button asChild variant="ghost" size="sm"><Link href="/find-school">{t("mk.nav.findSchool")}</Link></Button>
         </nav>

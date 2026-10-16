@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Digital Pathshala">
+  <rect width="64" height="64" rx="14" fill="#0F766E"/>
+  <path d="M32 20c-5-3.5-12-4-18-2v26c6-2 13-1.5 18 2 5-3.5 12-4 18-2V18c-6-2-13-1.5-18 2Z" fill="#fff"/>
+  <path d="M32 20v26" stroke="#0F766E" stroke-width="2.2"/>
+  <path d="M19 26c3-.7 6-.5 9 .8M19 32c3-.7 6-.5 9 .8" stroke="#0F766E" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <circle cx="45" cy="25" r="3.2" fill="#0369A1"/>
+  <path d="M40 34h10M40 38.5h7" stroke="#0369A1" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

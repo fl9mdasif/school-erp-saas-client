@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpenCheck, CalendarCheck, Globe, GraduationCap, Landmark, School, Smartphone, Trophy, Wallet, type LucideIcon } from "lucide-react";
+import { ArrowRight, BookOpenCheck, CalendarCheck, Globe, GraduationCap, Landmark, School, Smartphone, Trophy, Wallet, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -95,6 +95,14 @@ export function LandingPage() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Button asChild size="lg" variant="outline">
+              <Link href="/features">
+                {t("mk.features.showAll")}
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

@@ -70,4 +70,10 @@ export const marketing = {
   "demo.role.teacher": "Teacher",
   "demo.role.accountant": "Accountant",
   "mk.footer.platform": "Platform owner sign in",
+  "mk.features.showAll": "Show all features",
+  "mk.all.eyebrow": "Everything in one place",
+  "mk.all.title": "Every feature your institution needs",
+  "mk.all.subtitle": "{count} features across setup, students, attendance, fees, exams, your website and the parent portal.",
+  "mk.all.tryDemo": "Try the demo",
+  "mk.all.jump": "Feature areas",
 } as const;

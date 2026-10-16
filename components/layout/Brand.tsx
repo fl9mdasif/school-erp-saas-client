@@ -1,9 +1,7 @@
-import { BRAND_MARK, BRAND_NAME } from "@/lib/brand";
+import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
-const platformName = BRAND_NAME;
-
-/** Logo mark and the product name, both from lib/brand.ts. */
+/** Logo and the product name, both from lib/brand.ts and public/logo.svg. */
 export function Brand({
   compact = false,
   onLight = false,
@@ -16,13 +14,9 @@ export function Brand({
 }) {
   return (
     <span className={cn("flex items-center gap-2", className)}>
-      <span
-        aria-hidden="true"
-        className="grid size-9 shrink-0 place-items-center rounded-lg bg-primary text-base font-bold text-white"
-      >
-        {BRAND_MARK}
-      </span>
-      {compact ? null : <span className={cn("truncate text-base font-semibold", onLight ? "text-navy" : "text-white")}>{platformName}</span>}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/logo.svg" alt="" width={36} height={36} className="size-9 shrink-0 rounded-lg" />
+      {compact ? null : <span className={cn("truncate text-base font-semibold", onLight ? "text-navy" : "text-white")}>{BRAND_NAME}</span>}
     </span>
   );
 }
