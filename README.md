@@ -9,6 +9,108 @@ Next.js 16 (App Router) frontend for the School Management SaaS. One codebase se
 
 It talks to the Express API in `../server` through a same-origin `/api/v1` proxy.
 
+## What is this?
+
+A multi-tenant **School Management SaaS** for Bangladeshi schools, madrasas and coaching centres.
+An institution signs up in minutes, gets its own address (`/schools/<name>`), and runs everything
+from one place: admission, attendance, fees, exams and results, notices, and a public website.
+Parents and students follow along from their phones.
+
+**Built for the field:** phone first (mid-range Android on slow 4G), Bangla by default with an
+English switch and optional Bangla digits, money kept as whole poisha (no rounding errors), and
+every sensitive action behind a role check and written to an audit log.
+
+## Who uses it
+
+| Role | What they get |
+| --- | --- |
+| **Platform owner** | A console to run the SaaS: tenants, plans, subscriptions. |
+| **Admin** (principal / office) | Full control of one institution. |
+| **Teacher** | Their own classes: attendance, marks, notices. Read-only elsewhere. |
+| **Accountant** | The cash desk: collect fees, dues, payments, fee setup. |
+| **Student / Guardian** | A phone portal: attendance, fees and receipts, results, notices. A guardian switches between children. |
+| **Public visitor** | The school website, admission inquiry form, and result lookup. No sign-in. |
+
+## Features
+
+### Getting started
+- **Self-service signup** in three steps with a live, normalised site address check (alternatives offered when taken) and automatic sign-in.
+- **Find my school / school login**, forced password change on first login, forgot and reset password, lockout and rate-limit messages with the retry time.
+- **Onboarding checklist** on the admin home that follows real progress (session, classes, subjects, students, staff, first notice).
+- **Public demo school** card on the home page and on "Find your school".
+
+### Academic setup (admin)
+- **Sessions** with a current-session switch, **classes and sections** (reorder, edit, delete guards), and a **quick-create wizard** (Class 1 to 10 with sections).
+- **Subjects** with mark components (written, practical, ...) and a live total, and a **class-subject matrix** with kind (compulsory / optional / fourth), full and pass marks, and the teacher.
+- Class, section, roll and student labels are **renamable per institution** (terminology), for example batch and group for coaching centres.
+
+### Staff
+- Staff list and filters, create staff with a **temporary password shown once**, change role, deactivate (with a last-admin guard), reset password.
+
+### Students
+- Searchable, filterable list (class, section, status) with a **phone card layout**; create and edit with a **plan student-cap warning**, photo upload and guardian match.
+- Student profile tabs: profile, enrolment history, attendance, fees ledger, results.
+- **CSV import wizard** (template, dry-run report with row errors, commit), **CSV export**, and **year-end promotion** with repeaters and a plan preview.
+- Status changes with confirmation, create **student and guardian logins**, safe delete with a typed ID.
+
+### Attendance
+- **Take attendance** in a few taps: roster, one-tap status cycle, live counters, sticky submit, blocked weekends, a local **draft kept if the network drops**, and retry.
+- An **edit window** that closes after a configurable time (admin can always edit), with a clear explanation when closed.
+- **Reports:** day-by-day section matrix with percentages, and a per-student summary.
+
+### Notices
+- Rich-text notices (sanitised), **audience targeting** (everyone, staff, students and guardians, a class, a section), schedule and expiry, a **public toggle** for the website, and **PDF attachments**.
+- Teachers can post only to their own classes.
+
+### Fees and accounts
+- **Fee heads** and **fee structures** per class and session (monthly / term / yearly / one-time, due day, live monthly total).
+- **Waivers and scholarships** (percent or fixed, per head or all, with a reason and validity). They are ended, not deleted, so history stays explainable.
+- **Generate invoices** by class or section and period, with a **dry-run preview** and an idempotent confirm (no duplicates on retry).
+- **Invoices** list and detail with a ledger, and **void** with a reason.
+- **Collect fee:** search by name, ID, roll or guardian phone; tick outstanding invoices (oldest first); partial payments; cash, bank, cheque, bKash, Nagad or Rocket (reference required for digital methods); safe against double clicks.
+- **PDF receipts** with print and download, and a **payments list** with **reversal** (reason required, admin only; reversed payments stay visible).
+- **Dues** with filters and CSV, and **collection reports** by day, method, class or fee head with a chart and CSV.
+- The accountant home shows **today's collection and the total due**.
+
+### Exams and results
+- **Grading scales:** bands editor, pass percent, rules (fail on any compulsory subject, fourth-subject bonus, grace marks, merit tie-break) and presets (Bangladesh GPA 5.00, percentage, division).
+- **Exams** across classes with a status flow: draft, marks open, marks closed, published.
+- **Marks entry grid:** keyboard friendly (Tab and Enter), values above full marks flagged, absent flag, **autosave per row**, submit (locks the sheet) and admin unlock. Teachers see only their own subjects.
+- **Progress** by subject; **results** (calculate, pass rate, positions, filters); **publish** behind a checklist and a typed confirmation, after which the exam is locked.
+- **Correct a published result** with a mandatory reason and a version badge; **marksheet PDF** preview and **merit list CSV**.
+
+### Public school website
+- A per-school site with **theme colour** (with a contrast checker) and template, hero, about, mission, head's message, contact, social links, SEO title and description, and **section on/off switches**.
+- A **publish toggle** with a readiness checklist and preview; unpublished sites return 404.
+- Pages: home, notices, teachers, gallery, admission with an **inquiry form** (honeypot and rate limit), and **result lookup** (roll + date of birth, roll only, or student ID + date of birth; generic failure message; marksheet download).
+- Admin tools: **staff profiles**, a **gallery** with reorder and captions, and an **inquiries inbox** with a new-count badge.
+- Per-school SEO: titles, Open Graph, canonical URL, JSON-LD, and `robots.txt`.
+
+### Settings, plan and audit
+- School profile and **logo**, preferences (weekend days, attendance edit window, default fee cycle, public result lookup mode), read-only terminology, and **plan and usage** with a suspended-account banner.
+- **Audit log:** a filterable table of sensitive changes with an expandable before and after.
+
+### Platform console (owner)
+- Overview (tenants by status, weekly signups chart, trials ending soon), tenant list with search and filters, tenant detail (usage, suspend, reactivate, cancel with a reason, change plan, student cap, extend trial, change address, record a subscription payment), and plan management.
+
+### Student and guardian portal
+- Home with notices, a **month attendance calendar** with percentage, **fees** (dues and receipts with PDF), **published results** with marksheet download, and a **child switcher kept in the URL** for guardians.
+
+### Quality and platform
+- Role-based UI plus server-side enforcement; the sidebar collapses to icons, and phones get a bottom bar and drawer.
+- Consistent loading, empty and error states, and an **offline / server-down screen** instead of a false sign-out.
+- Accessibility: keyboard paths for attendance and marks, labelled controls, axe checks.
+- 42 unit tests, plus Playwright specs per role on mobile and desktop.
+
+## Typical workflow
+
+1. **Sign up** and finish the onboarding checklist: session, classes, subjects, class-subject mapping.
+2. **Add staff and students** (one by one or by CSV). Create logins for teachers, students and guardians.
+3. **Every day:** teachers take attendance; the accountant collects fees and hands out receipts.
+4. **Every month:** generate invoices, send notices, review dues and collection reports.
+5. **Exam time:** create the exam, open marks entry, teachers enter marks, the admin checks progress, calculates and publishes. Parents see results in the portal and on the public site.
+6. **Year end:** promote students and start the next session.
+
 ## Status
 
 | Area | State |
