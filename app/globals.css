@@ -225,3 +225,16 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Marketing: scroll reveal and floating hero cards. Motion is removed for reduced-motion users. */
+@keyframes mk-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.mk-float { animation: mk-float 6s ease-in-out infinite; }
+.mk-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease-out, transform 0.45s ease-out; transition-delay: var(--mk-delay, 0ms); }
+[data-in="true"] .mk-reveal, .mk-reveal[data-in="true"] { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .mk-float { animation: none; }
+  .mk-reveal { opacity: 1; transform: none; transition: none; }
+}

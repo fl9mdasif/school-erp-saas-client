@@ -7,6 +7,10 @@ import { Card } from "@/components/ui/card";
 import { useT } from "@/lib/i18n/useT";
 import { DemoSchoolCard } from "./DemoSchoolCard";
 import { ContainerScroll } from "./ContainerScroll";
+import { ACCENT, type TAccent } from "./accents";
+import { FEATURE_GROUPS } from "./featureData";
+import { RevealGrid } from "./RevealGrid";
+import { cn } from "@/lib/utils";
 import { DashboardMock, ResultMock } from "./Mocks";
 import { PhoneScroll } from "./PhoneScroll";
 import { PricingSection } from "./PricingSection";
@@ -21,10 +25,11 @@ const FEATURES = [
 ] as const;
 
 const AUDIENCE = ["school", "madrasa", "coaching"] as const;
+const AUDIENCE_ACCENT: Record<(typeof AUDIENCE)[number], TAccent> = { school: "blue", madrasa: "emerald", coaching: "violet" };
 const AUDIENCE_ICON: Record<(typeof AUDIENCE)[number], LucideIcon> = { school: School, madrasa: Landmark, coaching: BookOpenCheck };
 
 export function LandingPage() {
-  const { t } = useT();
+  const { t, lang } = useT();
 
   return (
     <>
@@ -67,7 +72,7 @@ export function LandingPage() {
               {(() => {
                 const Icon = AUDIENCE_ICON[k];
                 return (
-                  <span className="mb-4 grid size-12 place-items-center rounded-xl bg-primary-tint text-primary-deep transition-colors group-hover:bg-primary group-hover:text-white">
+                  <span className={cn("mb-4 grid size-12 place-items-center rounded-xl transition-colors group-hover:text-white", ACCENT[AUDIENCE_ACCENT[k]].tint, ACCENT[AUDIENCE_ACCENT[k]].text, ACCENT[AUDIENCE_ACCENT[k]].hover)}>
                     <Icon className="size-6" aria-hidden="true" />
                   </span>
                 );
@@ -79,23 +84,37 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* features */}
-      <section id="features" className="bg-card py-16">
+      {/* features: one colorful highlight per area, then the full list */}
+      <section id="features" className="bg-gradient-to-b from-card to-background py-16">
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="mb-10 text-center text-2xl font-semibold md:text-3xl">{t("mk.features.title")}</h2>
-          <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURES.map(({ icon: Icon, key }) => (
-              <div key={key} className="flex gap-4 rounded-xl border border-transparent p-4 transition-colors hover:border-border hover:bg-background">
-                <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-primary-tint text-primary-deep">
-                  <Icon className="size-5" aria-hidden="true" />
-                </span>
-                <div>
-                  <h3 className="font-semibold">{t(`mk.features.${key}.title`)}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{t(`mk.features.${key}.body`)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <h2 className="mb-2 text-center text-2xl font-semibold md:text-3xl">{t("mk.features.title")}</h2>
+          <p className="mx-auto mb-10 max-w-2xl text-center text-muted-foreground">{t("mk.features.sub")}</p>
+          <RevealGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURE_GROUPS.slice(0, 6).map((g, i) => {
+              const f = g.features.find((x) => x.featured) ?? g.features[0];
+              const a = ACCENT[g.accent];
+              return (
+                <Link
+                  key={g.id}
+                  href={`/features#${g.id}`}
+                  style={{ "--mk-delay": `${i * 60}ms` } as React.CSSProperties}
+                  className={cn(
+                    "mk-reveal group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl",
+                    a.soft,
+                    a.glow
+                  )}
+                >
+                  <span className={cn("mb-4 grid size-12 place-items-center rounded-xl text-white shadow-md", a.solid)}>
+                    <f.icon className="size-6" aria-hidden="true" />
+                  </span>
+                  <p className={cn("text-xs font-semibold uppercase tracking-wide", a.text)}>{g.title[lang === "bn" ? "bn" : "en"]}</p>
+                  <h3 className="mt-1 text-lg font-semibold text-navy">{f.title[lang === "bn" ? "bn" : "en"]}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{f.body[lang === "bn" ? "bn" : "en"]}</p>
+                  <ArrowRight className={cn("absolute bottom-5 right-5 size-5 opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100", a.text)} aria-hidden="true" />
+                </Link>
+              );
+            })}
+          </RevealGrid>
           <div className="mt-10 text-center">
             <Button asChild size="lg" variant="outline">
               <Link href="/features">

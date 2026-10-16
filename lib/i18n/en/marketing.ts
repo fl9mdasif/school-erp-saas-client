@@ -76,4 +76,6 @@ export const marketing = {
   "mk.all.subtitle": "{count} features across setup, students, attendance, fees, exams, your website and the parent portal.",
   "mk.all.tryDemo": "Try the demo",
   "mk.all.jump": "Feature areas",
+  "mk.all.roles": "Built for everyone in your institution",
+  "mk.features.sub": "One standout in every area. Open the full list to see everything it does.",
 } as const;

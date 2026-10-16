@@ -78,4 +78,6 @@ export const marketing: Record<keyof typeof en, string> = {
   "mk.all.subtitle": "সেটআপ, শিক্ষার্থী, উপস্থিতি, ফি, পরীক্ষা, ওয়েবসাইট ও অভিভাবক পোর্টাল জুড়ে {count}টি ফিচার।",
   "mk.all.tryDemo": "ডেমো দেখুন",
   "mk.all.jump": "ফিচারের ক্ষেত্র",
+  "mk.all.roles": "আপনার প্রতিষ্ঠানের সবার জন্য তৈরি",
+  "mk.features.sub": "প্রতিটি ক্ষেত্রের সেরা একটি করে। সবকিছু দেখতে পুরো তালিকা খুলুন।",
 };
