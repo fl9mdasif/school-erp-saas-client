@@ -19,6 +19,7 @@ export function MarketingFooter() {
           <Link className="py-2 hover:text-white" href="/terms">{t("mk.footer.terms")}</Link>
           <Link className="py-2 hover:text-white" href="/privacy">{t("mk.footer.privacy")}</Link>
           <Link className="py-2 hover:text-white" href="/contact">{t("mk.footer.contact")}</Link>
+          <Link className="py-2 hover:text-white" href="/platform/login">{t("mk.footer.platform")}</Link>
         </nav>
       </div>
     </footer>

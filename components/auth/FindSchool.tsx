@@ -34,6 +34,11 @@ export function FindSchool() {
           <Link href="/signup" className="font-semibold text-primary underline-offset-4 hover:underline">
             {t("mk.nav.signup")}
           </Link>
+          <span className="mt-2 block">
+            <Link href="/platform/login" className="text-xs text-muted-foreground underline-offset-4 hover:underline">
+              {t("mk.footer.platform")}
+            </Link>
+          </span>
         </>
       }
     >

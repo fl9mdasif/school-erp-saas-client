@@ -69,4 +69,5 @@ export const marketing = {
   "demo.role.admin": "Admin",
   "demo.role.teacher": "Teacher",
   "demo.role.accountant": "Accountant",
+  "mk.footer.platform": "Platform owner sign in",
 } as const;

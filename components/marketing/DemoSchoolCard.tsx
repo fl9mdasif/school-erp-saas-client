@@ -5,7 +5,8 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useT } from "@/lib/i18n/useT";
 
-const DEMO_SLUG = process.env.NEXT_PUBLIC_DEMO_SLUG;
+// Shown by default; set NEXT_PUBLIC_DEMO_SLUG to another slug, or to an empty value to hide the card.
+const DEMO_SLUG = process.env.NEXT_PUBLIC_DEMO_SLUG ?? "demo-school";
 
 const ACCOUNTS = [
   { role: "admin", email: "admin@demo.school", password: "Demo@1234" },
@@ -13,7 +14,7 @@ const ACCOUNTS = [
   { role: "accountant", email: "salim@demo.school", password: "Demo@123" },
 ] as const;
 
-/** A ready-made demo school anyone can sign in to. Only shown when NEXT_PUBLIC_DEMO_SLUG is set. */
+/** A ready-made demo school anyone can sign in to. Hidden when NEXT_PUBLIC_DEMO_SLUG is empty. */
 export function DemoSchoolCard({ className, showAccounts = true }: { className?: string; showAccounts?: boolean }) {
   const { t } = useT();
   if (!DEMO_SLUG) return null;

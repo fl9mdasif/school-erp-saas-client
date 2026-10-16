@@ -71,4 +71,5 @@ export const marketing: Record<keyof typeof en, string> = {
   "demo.role.admin": "অ্যাডমিন",
   "demo.role.teacher": "শিক্ষক",
   "demo.role.accountant": "হিসাবরক্ষক",
+  "mk.footer.platform": "প্ল্যাটফর্ম মালিকের সাইন ইন",
 };
