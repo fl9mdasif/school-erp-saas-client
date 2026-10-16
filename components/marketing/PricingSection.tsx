@@ -48,12 +48,12 @@ export function PricingSection({ withHeading = true }: { withHeading?: boolean }
                   ) : null}
                   <h3 className="text-lg font-semibold">{plan.name}</h3>
                   <p className="mt-3">
-                    <span className="tabular text-3xl font-bold text-navy">{formatMoney(plan.monthlyPrice, fmt).replace(/\.00$/, "").replace(/\.০০$/, "")}</span>
+                    <span className="tabular text-3xl font-bold text-navy">{formatMoney(plan.monthlyPrice * 100, fmt).replace(/\.00$/, "").replace(/\.০০$/, "")}</span>
                     <span className="ml-1 text-sm text-muted-foreground">{t("mk.pricing.perMonth")}</span>
                   </p>
                   {plan.yearlyPrice > 0 ? (
                     <p className="mt-1 text-sm text-muted-foreground">
-                      {formatMoney(plan.yearlyPrice, fmt).replace(/\.00$/, "").replace(/\.০০$/, "")} {t("mk.pricing.perYear")}
+                      {formatMoney(plan.yearlyPrice * 100, fmt).replace(/\.00$/, "").replace(/\.০০$/, "")} {t("mk.pricing.perYear")}
                     </p>
                   ) : null}
                   <ul className="mt-5 flex-1 space-y-2 text-sm">

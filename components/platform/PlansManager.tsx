@@ -87,12 +87,12 @@ export function PlansManager() {
               <CardContent className="space-y-3">
                 <div>
                   <p className="tabular text-2xl font-semibold text-navy">
-                    {formatMoney(p.monthlyPrice, fmt)}{" "}
+                    {formatMoney(p.monthlyPrice * 100, fmt)}{" "}
                     <span className="text-sm font-normal text-muted-foreground">{t("mk.pricing.perMonth")}</span>
                   </p>
                   {p.yearlyPrice > 0 ? (
                     <p className="text-sm text-muted-foreground">
-                      {formatMoney(p.yearlyPrice, fmt)} {t("mk.pricing.perYear")}
+                      {formatMoney(p.yearlyPrice * 100, fmt)} {t("mk.pricing.perYear")}
                     </p>
                   ) : null}
                   {p.trialDays > 0 ? (
