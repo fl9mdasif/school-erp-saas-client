@@ -39,6 +39,8 @@ export const marketing = {
   "mk.pricing.title": "Simple pricing by number of students",
   "mk.pricing.subtitle": "Every plan starts with a 30-day free trial.",
   "mk.pricing.perMonth": "per month",
+  "mk.pricing.perYear": "per year",
+  "mk.pricing.popular": "Most popular",
   "mk.pricing.upTo": "Up to {count} students",
   "mk.pricing.csv": "CSV student import",
   "mk.pricing.pdf": "Marksheet PDF",

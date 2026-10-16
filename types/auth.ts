@@ -28,10 +28,10 @@ export type TTenantSummary = {
     defaultFeeCycle: "monthly" | "term" | "yearly" | "one_time";
   };
   plan: {
-    code: string;
+    slug: string;
     name: string;
-    studentCap: number;
-    features: { customDomain: boolean; csvImport: boolean; marksheetPdf: boolean };
+    features: string[];
+    notIncluded: string[];
   } | null;
 };
 

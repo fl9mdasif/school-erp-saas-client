@@ -107,7 +107,7 @@ export function TenantDetail({ id }: { id: string }) {
             {tenant.plan ? (
               <>
                 <p className="text-lg font-semibold text-navy">{tenant.plan.name}</p>
-                <p className="tabular text-muted-foreground">{formatMoney(tenant.plan.priceMonthly, fmt)} {t("mk.pricing.perMonth")}</p>
+                <p className="tabular text-muted-foreground">{formatMoney(tenant.plan.monthlyPrice, fmt)} {t("mk.pricing.perMonth")}</p>
               </>
             ) : (
               <p className="text-muted-foreground">{t("pf.detail.noPlan")}</p>

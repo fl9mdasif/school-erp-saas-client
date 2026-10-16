@@ -39,28 +39,32 @@ export function PricingSection({ withHeading = true }: { withHeading?: boolean }
                   <Skeleton className="h-4 w-40" />
                 </Card>
               ))
-            : data.map((plan, i) => (
-                <Card key={plan._id} className={`flex flex-col p-6 ${i === 1 ? "border-primary ring-1 ring-primary" : ""}`}>
+            : data.map((plan) => (
+                <Card key={plan._id} className={`flex flex-col p-6 ${plan.isPopular ? "border-primary ring-1 ring-primary" : ""}`}>
+                  {plan.isPopular ? (
+                    <span className="mb-3 inline-flex w-fit rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-white">
+                      {t("mk.pricing.popular")}
+                    </span>
+                  ) : null}
                   <h3 className="text-lg font-semibold">{plan.name}</h3>
                   <p className="mt-3">
-                    <span className="tabular text-3xl font-bold text-navy">{formatMoney(plan.priceMonthly, fmt).replace(/\.00$/, "").replace(/\.০০$/, "")}</span>
+                    <span className="tabular text-3xl font-bold text-navy">{formatMoney(plan.monthlyPrice, fmt).replace(/\.00$/, "").replace(/\.০০$/, "")}</span>
                     <span className="ml-1 text-sm text-muted-foreground">{t("mk.pricing.perMonth")}</span>
                   </p>
+                  {plan.yearlyPrice > 0 ? (
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {formatMoney(plan.yearlyPrice, fmt).replace(/\.00$/, "").replace(/\.০০$/, "")} {t("mk.pricing.perYear")}
+                    </p>
+                  ) : null}
                   <ul className="mt-5 flex-1 space-y-2 text-sm">
-                    {[
-                      t("mk.pricing.upTo", { count: plan.studentCap }),
-                      plan.features.csvImport ? t("mk.pricing.csv") : null,
-                      plan.features.marksheetPdf ? t("mk.pricing.pdf") : null,
-                    ]
-                      .filter(Boolean)
-                      .map((line) => (
-                        <li key={line} className="flex items-start gap-2">
-                          <Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden="true" />
-                          <span>{line}</span>
-                        </li>
-                      ))}
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2">
+                        <Check className="mt-0.5 size-4 shrink-0 text-success" aria-hidden="true" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
                   </ul>
-                  <Button asChild className="mt-6" variant={i === 1 ? "default" : "outline"}>
+                  <Button asChild className="mt-6" variant={plan.isPopular ? "default" : "outline"}>
                     <Link href="/signup">{t("mk.pricing.cta")}</Link>
                   </Button>
                 </Card>

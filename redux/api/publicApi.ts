@@ -1,14 +1,7 @@
+import type { TPlan } from "@/types";
 import { baseApi } from "./baseApi";
 
-export type TPublicPlan = {
-  _id: string;
-  code: string;
-  name: string;
-  /** Integer poisha per month. */
-  priceMonthly: number;
-  studentCap: number;
-  features: { customDomain: boolean; csvImport: boolean; marksheetPdf: boolean };
-};
+export type TPublicPlan = TPlan;
 
 export type TSchoolHit = { name: string; slug: string; district?: string };
 

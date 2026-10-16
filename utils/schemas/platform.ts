@@ -29,14 +29,16 @@ export const subscriptionPaymentSchema = z
   .refine((v) => v.periodEnd > v.periodStart, { path: ["periodEnd"], message: "val.dateOrder" });
 
 export const planSchema = z.object({
-  code: z.string().trim().toLowerCase().min(2, "val.required").max(30).regex(/^[a-z0-9_-]+$/, "val.slug"),
+  slug: z.string().trim().toLowerCase().min(2, "val.required").max(30).regex(/^[a-z0-9_-]+$/, "val.slug"),
   name: z.string().trim().min(2, "val.required").max(60),
-  priceMonthly: z.number({ message: "val.required" }).int().min(0, "val.positive"),
-  studentCap: z.number({ message: "val.required" }).int().min(1, "val.positive"),
-  csvImport: z.boolean(),
-  marksheetPdf: z.boolean(),
-  customDomain: z.boolean(),
+  monthlyPrice: z.number({ message: "val.required" }).int().min(0),
+  yearlyPrice: z.number({ message: "val.required" }).int().min(0),
+  yearlyDiscount: z.number({ message: "val.required" }).int().min(0),
+  trialDays: z.number({ message: "val.required" }).int().min(0),
   isActive: z.boolean(),
+  isPopular: z.boolean(),
+  features: z.array(z.string().trim()),
+  notIncluded: z.array(z.string().trim()),
 });
 
 export type TPlanChangeForm = z.infer<typeof planChangeSchema>;

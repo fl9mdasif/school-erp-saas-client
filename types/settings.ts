@@ -34,7 +34,7 @@ export type TSchoolUsage = {
   students: number;
   studentCap: number;
   staff: number;
-  plan: { code: string; name: string } | null;
+  plan: { slug: string; name: string } | null;
   status: TTenantStatus;
   trialEndsAt?: string;
 };

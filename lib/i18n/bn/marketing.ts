@@ -41,6 +41,8 @@ export const marketing: Record<keyof typeof en, string> = {
   "mk.pricing.title": "শিক্ষার্থীর সংখ্যা অনুযায়ী সহজ মূল্য",
   "mk.pricing.subtitle": "প্রতিটি প্ল্যান ৩০ দিনের ফ্রি ট্রায়াল দিয়ে শুরু।",
   "mk.pricing.perMonth": "প্রতি মাসে",
+  "mk.pricing.perYear": "প্রতি বছরে",
+  "mk.pricing.popular": "সবচেয়ে জনপ্রিয়",
   "mk.pricing.upTo": "সর্বোচ্চ {count} জন শিক্ষার্থী",
   "mk.pricing.csv": "CSV দিয়ে শিক্ষার্থী ইমপোর্ট",
   "mk.pricing.pdf": "নম্বরপত্র PDF",

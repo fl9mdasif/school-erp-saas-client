@@ -48,7 +48,7 @@ export function StudentForm({ studentId }: { studentId?: string }) {
   const router = useRouter();
   const banglaDigits = useAppSelector((s) => s.ui.banglaDigits);
   const fmt = { lang, banglaDigits } as const;
-  const cap = useAppSelector((s) => s.auth.tenant?.plan?.studentCap);
+  const cap = undefined as number | undefined; // studentCap moved to tenant level; server enforces via PLAN_LIMIT_REACHED
   const summary = useGetDashboardSummaryQuery();
   const classes = useGetClassesQuery();
   const sections = useGetSectionsQuery();

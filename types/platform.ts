@@ -24,12 +24,16 @@ export type TTenantRow = {
 
 export type TPlan = {
   _id: string;
-  code: string;
+  slug: string;
   name: string;
-  priceMonthly: number;
-  studentCap: number;
-  features: { customDomain: boolean; csvImport: boolean; marksheetPdf: boolean };
+  monthlyPrice: number;
+  yearlyPrice: number;
+  yearlyDiscount: number;
+  trialDays: number;
   isActive: boolean;
+  isPopular: boolean;
+  features: string[];
+  notIncluded: string[];
 };
 
 export type TSubscriptionPayment = {
@@ -62,4 +66,4 @@ export type TSubscriptionPaymentInput = {
   periodStart: string;
   periodEnd: string;
 };
-export type TPlanInput = Omit<TPlan, "_id" | "isActive"> & { isActive?: boolean };
+export type TPlanInput = Omit<TPlan, "_id">;
