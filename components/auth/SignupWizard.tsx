@@ -1,5 +1,6 @@
 "use client";
 
+import { BRAND_DOMAIN } from "@/lib/brand";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Building2, BookOpen, Check, GraduationCap, Loader2, X } from "lucide-react";
 import Link from "next/link";
@@ -21,7 +22,7 @@ import { SIGNUP_STEP_FIELDS, signupSchema, type TSignupForm } from "@/utils/inte
 import { passwordStrength } from "@/utils/passwordStrength";
 import { normalizeSlug, slugSuggestions } from "@/utils/slug";
 
-const DOMAIN = process.env.NEXT_PUBLIC_PLATFORM_DOMAIN ?? "xyz.com";
+const DOMAIN = BRAND_DOMAIN;
 const TYPES = [
   { value: "school", icon: GraduationCap },
   { value: "madrasa", icon: BookOpen },

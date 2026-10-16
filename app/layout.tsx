@@ -1,3 +1,4 @@
+import { BRAND_NAME } from "@/lib/brand";
 import type { Metadata, Viewport } from "next";
 import { Hind_Siliguri, Inter } from "next/font/google";
 import { AppProviders } from "@/components/providers/AppProviders";
@@ -16,7 +17,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const platformName = process.env.NEXT_PUBLIC_PLATFORM_NAME ?? "xyz";
+const platformName = BRAND_NAME;
 
 export const metadata: Metadata = {
   title: { default: `${platformName} | School Management`, template: `%s | ${platformName}` },

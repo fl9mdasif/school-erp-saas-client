@@ -47,7 +47,7 @@ describe("signup wizard", () => {
     fireEvent.change(screen.getByLabelText(/Site address/), { target: { value: "brightModel" } });
     // normalized at once, before the server answers
     expect(screen.getByText(/We will use: bright-model/)).toBeInTheDocument();
-    expect(screen.getByText(/xyz\.com\/schools\/bright-model/)).toBeInTheDocument();
+    expect(screen.getByText(/digitalpathshala\.com\/schools\/bright-model/)).toBeInTheDocument();
     expect(await screen.findByText("bright-model is available", {}, { timeout: 3000 })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Next" })).toBeEnabled();
   });

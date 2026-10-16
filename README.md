@@ -170,7 +170,7 @@ See `.env.example`.
 | `API_BASE_URL` | Server side only. Where Next rewrites `/api/v1/*` to, and where public Server Components fetch for SEO (`lib/publicSite.ts`). |
 | `NEXT_PUBLIC_BACKEND_API_URL` | Browser base path for RTK Query and public forms. Normally `/api/v1` (same origin through the rewrite, so the httpOnly refresh cookie stays first party). |
 | `NEXT_PUBLIC_FEATURES` | Comma separated flags: `portal`, `promotion`, `audit`, `pdf`, `customDomain`, `sms`. |
-| `NEXT_PUBLIC_PLATFORM_NAME`, `NEXT_PUBLIC_PLATFORM_DOMAIN` | Marketing hub branding. |
+| `NEXT_PUBLIC_PLATFORM_DOMAIN` | Domain shown in the signup preview. The brand name (Digital Pathshala) is fixed in `lib/brand.ts`. |
 
 ### Image uploads (Cloudinary)
 

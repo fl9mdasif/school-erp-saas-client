@@ -1,8 +1,9 @@
+import { BRAND_MARK, BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
-const platformName = process.env.NEXT_PUBLIC_PLATFORM_NAME ?? "xyz";
+const platformName = BRAND_NAME;
 
-/** Logo mark (A, অ, ا in teal on navy) and the product name. Replace the mark when the brand is final. */
+/** Logo mark and the product name, both from lib/brand.ts. */
 export function Brand({
   compact = false,
   onLight = false,
@@ -19,7 +20,7 @@ export function Brand({
         aria-hidden="true"
         className="grid size-9 shrink-0 place-items-center rounded-lg bg-primary text-base font-bold text-white"
       >
-        অ
+        {BRAND_MARK}
       </span>
       {compact ? null : <span className={cn("truncate text-base font-semibold", onLight ? "text-navy" : "text-white")}>{platformName}</span>}
     </span>
